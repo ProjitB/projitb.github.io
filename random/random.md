@@ -6,6 +6,7 @@
 
 Check your /sys/fs/cgroup/memory files.
 My output on my vagrant vm is:
+```
 vagrant@ubuntu-xenial:/sys/fs/cgroup/memory$ ls -l
 total 0
 -rw-r--r--  1 root root 0 Nov 20 08:10 cgroup.clone_children
@@ -40,8 +41,9 @@ drwxr-xr-x  2 root root 0 Nov 20 07:16 init.scope
 drwxr-xr-x 63 root root 0 Nov 20 07:16 system.slice
 -rw-r--r--  1 root root 0 Nov 20 08:10 tasks
 drwxr-xr-x  2 root root 0 Nov 20 07:16 user.slice
+```
 
-Theres a file called...cgroup.sane_behavior. It was set to 0 :o
+Theres a file called...cgroup.sane\_behavior. It was set to 0 :o
 
 Theres also a memory.swappiness 
 Apparently the swappiness is a measure of how aggressively the kernel will swap memory pages. Who would've guessed.
