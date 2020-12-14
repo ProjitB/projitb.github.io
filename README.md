@@ -4,3 +4,4 @@ So the plan is to kind of keep track of stuff I do / learn over time using this.
 
 - [Random Facts](./random/random.md)
 - [VIM notes](https://github.com/ProjitB/LearnVimEasily)
+- [Intro to Containers](./containers/containers.md)
