@@ -48,3 +48,21 @@ Theres a file called...cgroup.sane\_behavior. It was set to 0 :o
 Theres also a memory.swappiness 
 Apparently the swappiness is a measure of how aggressively the kernel will swap memory pages. Who would've guessed.
 
+
+## Golang defer statements: execute later?
+First time I've seen syntax like this. Apparently in golang you can defer execution of statements. The defers are pushed onto a stack, and are executed after the surrounding function returns
+
+```golang
+package main
+import "fmt"
+
+func main() {
+    for i:=0; i< 5; i++ {
+        defer fmt.Println("Not done: ", i)
+    }
+    fmt.Println("End of my code...or so you think")
+}
+    
+```
+
+While this looks extremely useful and seems to be an awesome feature...I wonder how this will complicate readability given control flow can now change drastically.
