@@ -3,7 +3,7 @@
 So I've been working with containers are their associated management ecosystems(docker, kubernetes..) for a while now. And well, they can still seem a bit magical sometimes. How are we running a full operating system within this..container process thing.
  What even are containers?
 
- I've noticed that I usually understand stuff better by building concepts up from the base. So through this, I plan to explain (and discover more about) containers, from their very basics. So while at first I thought there weren't too many resources on this topic, turns out there are a lot of well written blogs on it. I will link to other sites for their examples wherever relavant. 
+I've noticed that I usually understand stuff better by building concepts up from the base. So through this, I plan to explain (and discover more about) containers, from their very basics. So while at first I thought there weren't too many resources on this topic, turns out there are a lot of well written blogs on it. I will link to other sites for their examples wherever relavant. 
 
 
 ## The very basics
@@ -47,7 +47,7 @@ sudo chroot test_dir /bin/bash
 This should in fact yield the same error as before (may differ slightly based on chroot/linux versions?). Essentially the issue right now is that /bin/bash isn't present in the chrooted directory structure. So ok, lets go get it.
 
 ```
-mkdir -p test_dir/bin   
+mkdir -p test_dir/bin
 cp /bin/bash test_dir/bin/    # Path may be slightly different
 sudo chroot test_dir /bin/bash
 > chroot: cannot change root directory to '/bin/bash': Not a directory
@@ -68,9 +68,42 @@ sudo chroot test_dir /bin/bash
 
 Playing around with it a bit, you'll see that you can't really exit the chrooted instance unless you kill the process (ctrl d). Navigating around to the other parts of the directory structure looks impossible though right. `cd ..` at `/` yields the same directory.
 
+```
+> ls
+bin  lib  lib64  proc  usr
+> cd ..
+> ls
+bin  lib  lib64  proc  usr
+```
+
 This structure we've created is called a chroot jail. However if a program within it is run with root privileges, it is possible to "break out" [2]. I've not really played with trying to break out, but given that processes with root privileges can access and modify pretty much any part of a system, it seems reasonable that this should be possible.
 
-Anyway, we've digressed. The point of talking about chroot was to show isolation of information. At this point we've sort of isolated the filesystem right?
+
+## No Sharing!
+
+Refer [3] for examples as well
+Anyway, we've digressed. The point of talking about chroot was to show isolation of information. At this point we've sort of isolated the filesystem right? But a filesystem isn't the only part of a computer right? What about other stuff? Instead of copying just ls, lets mount bin within our chrooted instance as well (mainly for convenience. We get all of our executables then). We didn't do this before to prove that the executables aren't actually necessary.
+
+```
+sudo mount -o bind /bin test_dir/bin/
+sudo chroot test_dir /bin/bash
+```
+
+With our full set of executables, we can now pretty much explore all the stuff we'd normally do within the machine. Let's look at the processes
+
+```
+> ps
+Error, do this: mount -t proc proc /proc
+> mount -t proc proc /proc
+> ps
+  PID TTY          TIME CMD
+12055 ?        00:00:00 sudo
+12056 ?        00:00:00 bash
+12063 ?        00:00:00 ps
+```
+
+Executing `ps -aux` shows us pretty much all the processes running on the vm. That's very un-container-like. We want isolated systems. It's not very isolated if I can kill other processes(`pkill <pid>`). You can try running a command like `top` and viewing it from the vm itself via `ps -aux | grep top` (do another `vagrant ssh` in a separate shell), and then kill the process as well.
+
 
 
 
