@@ -106,7 +106,7 @@ Error, do this: mount -t proc proc /proc
 Executing `ps -aux` shows us pretty much all the processes running on the vm. That's very un-container-like. We want isolated systems. It's not very isolated if I can kill other processes(`pkill <pid>`). You can try running a command like `top` and viewing it from the vm itself via `ps -aux | grep top` (do another `vagrant ssh` in a separate shell), and then kill the process as well. Vice versa as well (run `top` on main machine and view/kill it from chroot)
 
 
-So how do we fix this issue? Linux natively provides us the ability to create restricted namespaces. With these namespaces, you can create a restricted view of shared resources for a new process. Complicated words, but lets take a look at what it would look like, using the `unshare` [https://linux.die.net/man/2/unshare] command.
+So how do we fix this issue? Linux natively provides us the ability to create restricted namespaces. With these namespaces, you can create a restricted view of shared resources for a new process. Complicated words, but lets take a look at what it would look like, using the `unshare` [link](https://linux.die.net/man/2/unshare) command.
 
 (Use the previous steps to setup the folders and all)
 ```
@@ -186,7 +186,7 @@ But taking this a step further...imagine that the directory were actually a moun
 
 
 ### Networking
-I don't think I can provide any better story or explanations regarding this topic than what is already present at [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/#fnr.15]. Highly recommend going through this to understand the basics of how containers can communicate with one another. Using the same chrooted instance they setup basic networking and discovery. At some point in the future I may again replicate some of the examples here, once I have a better handle on networks :)
+I don't think I can provide any better story or explanations regarding this topic than what is already present at [link](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/#fnr.15). Highly recommend going through this to understand the basics of how containers can communicate with one another. Using the same chrooted instance they setup basic networking and discovery. At some point in the future I may again replicate some of the examples here, once I have a better handle on networks :)
 
 
 ### Resource Restrictions
