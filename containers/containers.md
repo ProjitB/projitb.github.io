@@ -143,8 +143,64 @@ USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 0           35  0.0  0.3  36080  3120 ?        R+   06:25   0:00 ps aux
 bash-4.3#
 ```
-Now go look for this `/bin/bash` process on the host. `ps aux | grep /bin/bash | grep root`. We can view all the process related information by examining the directory `/proc/<pid>` and it's namespace related information at `/proc/<pid>/ns`. Entering a container is essentially just entering the 
+Now go look for this `/bin/bash` process on the host. `ps aux | grep /bin/bash | grep root`. We can view all the process related information by examining the directory `/proc/<pid>` and it's namespace related information at `/proc/<pid>/ns`. Entering a container is essentially just entering the namespace with all the same initial conditions right? This can be achieved via `nsenter`
 
+
+So just nsenter. We don't need to unshare the pid namespace this time (thus no -p flag), as our goal is to join the same namespace that we enter in the first step.
+```
+> sudo nsenter --pid=/proc/<pid>/ns/pid
+> unshare -f
+> chroot test_dir /bin/bash
+```
+
+`ps aux` and other commands between your two sessions will show you that you're in the same 'container'. The previous steps wrapped together can easily be imagined to be quite similar to `docker exec` or `kubectl exec` in a way right?
+
+
+## Sometimes Sharing is Good?
+
+### Storage
+What if we want to add files or storage to a container? Just a process isn't very useful. To achieve this, lets revist the mounts we used in the starting. In our current model, we chroot a directory and then use this instance normally. But this directory exists on the root filesystem of the main machine right? Which basically means that if we were to download stuff within that directory, our root filesystem space would get filled up right? Since this is essentially just a path within the filesystem.
+
+
+Mounts clearly work inside the container (from above examples). What all can we do with them?
+
+For starters, files can easily be injected into the running container using mounts...even from the host
+
+On the host do:
+```
+> mkdir rofiles
+> mkdir -p test_dir/var/rofiles
+> echo "hello world" > rofiles/sample.txt
+> sudo mount --bind -o ro rofiles/ test_dir/var/rofiles
+```
+
+In chroot do:
+```
+> echo "hello world" > /var/rofiles/sample.txt
+bash: /var/rofiles/sample.txt: Read-only file system
+```
+
+Very simply put, using mounts we can control the filesystem. And the chrooted instance is just a view of this filesystem.
+
+But taking this a step further...imagine that the directory were actually a mount of an external block device. By this method, we could actually "attach" a device to a container.
+
+
+### Networking
+I don't think I can provide any better story or explanations regarding this topic than what is already present at [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/#fnr.15]. Highly recommend going through this to understand the basics of how containers can communicate with one another. Using the same chrooted instance they setup basic networking and discovery. At some point in the future I may again replicate some of the examples here, once I have a better handle on networks :)
+
+
+### Resource Restrictions
+
+Present in `/sys/fs/cgroup` is the holy grail of control of containers. All the fancy restrictions on size, usage...etc all are controlled by cgroups aka control groups. Honestly, cgroups are a topic of their own right. But for the purpose of demonstrating restrictions on a container, all we must to is show that this feature can easily be used to restrict the amount of X a process can use.
+For now I shall leave it to you for a simple google search on the topic :).  [3] also has a simple example restricting memory.
+
+## Interlude
+Up to this point, we've essentially seen that the high level features of a container, are all basically linux features. And yeah, that's pretty much the goal of me writing this. But there's one part of the story that's still missing. In the beginning I said that containers seem like full blown operating systems. So far all we've seen is just some shell / process running. Not very operating-system-like. Sure the top level directory structure LOOKS like the files you see normally, but that's only because we literally mounted our system files. Right? 
+
+Given a process, we know how to make it act like a container. Or at the very least, we've now understood some of the high level constructs of a container. And their simple base with linux. Now let's make it run an operating system..
+
+
+## Build that weird tar
 
 
 
