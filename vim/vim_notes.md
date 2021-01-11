@@ -1,9 +1,9 @@
 ---
 author:
 - Projit Bandyopadhyay
-- Mirrored from github repo: [LearnVimEasily](https://github.com/ProjitB/LearnVimEasily)
 title: Vim Start to End
 ---
+Mirrored from github repo: [LearnVimEasily](https://github.com/ProjitB/LearnVimEasily)
 
 Why Vim is Awesome
 ==================
@@ -45,24 +45,25 @@ Modes
 When you first open Vim (vim \<somedocument\>) you are in Normal Mode.
 This is the mode that you will stay in to edit.
 
-  ------------------ --------------
-   Normal to Insert        i
-   Insert to Normal       Esc
-   Normal to Visual   v, Ctrl v, V
-   Visual to Normal       Esc
-  ------------------ --------------
+  |      Action      |  Keystroke   | 
+  |------------------|--------------|
+  | Normal to Insert |      i       |
+  | Insert to Normal |     Esc      |
+  | Normal to Visual | v, Ctrl v, V |
+  | Visual to Normal |     Esc      |
+  |------------------|--------------|
 
 Basically if you're confused and don't know what's going on press *Esc*
 repeatedly till it goes back to normal :)
 
 Little more on Visual:
 
-   Command                         Description
-  --------- ----------------------------------------------------------
-      v      enter visual mode, then can move around with navigation.
-      V      enter visual line mode, then can move around up and down
-   Ctrl V    enter visual block mode, can move around with navigation
-     gv                select the last selected block again
+   Command |                       Description
+  ---------|----------------------------------------------------------
+      v    | enter visual mode, then can move around with navigation.
+      V    | enter visual line mode, then can move around up and down
+   Ctrl V  | enter visual block mode, can move around with navigation
+     gv    |           select the last selected block again
 
 Navigation
 ----------
@@ -72,37 +73,35 @@ mode to move around (you'll see why later)
 
 In Normal Mode:
 
-    Command   Description
-  ----------- ---------------------------------------------------------------------------------------------------------------
-       j      down one line
-       k      up one line
-       h      left one character
-       l      right one character
-       0      start of the line
-      \$      end of the line
-       w      move to beginning of next (w)ord
-       W      move to beginning of next (w)ord after a whitespace
-       b      move to (b)ackward to beginning of word
-       B      move (b)ackward by word to next whitespace
-       e      move to (e)nd of word
-       E      move to (e)nd of word til whitespace
-       G      move to end of the file
-      gg      move to start of the file
-    Ctrl u    move half screen (u)p
-    Ctrl d    move half screen (d)own
-    Ctrl e    scroll downwards without moving cursor
-    Ctrl y    scroll upwards without moving cursor
-      zt      move current line (t)op of screen
-      zb      move current line (b)ottom of screen
-      zz      move current line center of screen
-       '      move to first non whitespace character in line (useful while coding)
-      '.      move to last edit point
-   f\<char\>  move (f)orward to first character in that line which matches that character
-   F\<char\>  move backward to first character in that line which matches that character
-   t\<char\>  move forward (t)il first character in that line which matches that character,but stop one character before
-   T\<char\>  move backward (t)il first character in that line which matches that character,but stop one character in front
-     /text    searches forward for text in doc. *n* and *N* to navigate
-     ?text    searches backward for text in doc. *n* and *N* to navigate
+ |  Command      |  Description
+ |---------------|----------------------------------------------------------------------------------------------
+ |     j         |  down one line
+ |     k         |  up one line
+ |     h         |  left one character
+ |     l         |  right one character
+ |     0         |  start of the line
+ |     $         |  end of the line
+ |     w         |  move to beginning of next (w)ord
+ |     W         |  move to beginning of next (w)ord after a whitespace
+ |     b         |  move to (b)ackward to beginning of word
+ |     B         |  move (b)ackward by word to next whitespace
+ |     e         |  move to (e)nd of word
+ |     E         |  move to (e)nd of word til whitespace
+ |     G         |  move to end of the file
+ |    gg         |  move to start of the file
+ |  Ctrl u       |  move half screen (u)p
+ |  Ctrl d       |  move half screen (d)own
+ |  Ctrl e       |  scroll downwards without moving cursor
+ |  Ctrl y       |  scroll upwards without moving cursor
+ |    zt         |  move current line (t)op of screen
+ |    zb         |  move current line (b)ottom of screen
+ |    zz         |  move current line center of screen
+ |     ^         |  move to first non whitespace character in line (useful while coding)
+ |    '.         |  move to last edit point 
+ | f <char>    |  move (f)orward to first character in that line which matches that character
+ | F <char>    |  move backward to first character in that line which matches that character
+ |   /text       |  searches forward for text in doc. *n* and *N* to navigate
+ |   ?text       |  searches backward for text in doc. *n* and *N* to navigate
 
 Editing
 -------
@@ -116,27 +115,26 @@ full functionality
 
 These all only work in Normal mode:
 
-   Command  Description
-  --------- ----------------------------------------------------
-      i     enter insert mode at current position
-            
-      I     enter insert mode at start of line
-      a     enter insert mode one character in front of cursor
-      A     enter insert mode at the end of the line
-     dd     delete current line
-     d\$    delete current point til end of line
-     yy     yank current line
-      p     paste from current point
-      P     paste before this point
-      x     delete character under cursor
-     rA     replace character under cursor with A (change A)
-      u     undo last change
-   Ctrl r   redo
-     *.*    repeat last change made
-     :w     save file
-     :q     quite file
-     :q!    quite with force (discard changes)
-     :wq    save and quit
+   Command | Description
+  ---------|----------------------------------------------------
+      i    | enter insert mode at current position
+      I    | enter insert mode at start of line
+      a    | enter insert mode one character in front of cursor
+      A    | enter insert mode at the end of the line
+     dd    | delete current line
+     d\$   | delete current point til end of line
+     yy    | yank current line
+      p    | paste from current point
+      P    | paste before this point
+      x    | delete character under cursor
+     rA    | replace character under cursor with A (change A)
+      u    | undo last change
+   Ctrl r  | redo
+     *.*   | repeat last change made
+     :w    | save file
+     :q    | quite file
+     :q!   | quite with force (discard changes)
+     :wq   | save and quit
 
 When using vim from a terminal, a common workflow is to type :w and then
 Ctrl z.
@@ -151,22 +149,23 @@ Fancy
 You see other \"cool\" people using fancy splits and stuff. here are the
 basics on how to use those.
 
-          Command         Description
-  ----------------------- -------------------------------------------------------------------------------------------------
-       :vs \<file?\>      (v)ertical (s)plit current window. Add file to open that file as well
-       :sp \<file?\>      horizontal (sp)lit current window. Add file to open that file as well
-        \<ctrl w\>        use j,k,l,h along with this to move in that direction, to navigate splits
-   \<ctrl w\> \<ctrl w\>  cycle through windows
-            :q            close split you're in right now
-           :only          close all other splits but current
-      :set scrollbind     do this in each of the windows if you want them to scroll together (useful when comparing code)
-    \<ctrl w\> \[N\] -    Decrease current window height by N (default 1)
-    \<ctrl w\> \[N\] +    Increase current window height by N (default 1)
-    \<ctrl w\> \[N\] \<   Decrease current window width by N (default 1)
-    \<ctrl w\> \[N\] \>   Increase current window width by N (default 1)
-        \<ctrl w\>        maximize current window vertically
-       \<ctrl w\> \|      maximize current window horizontally
-       \<ctrl w\> =       make all equal size
+   Command                | Description
+  ------------------------|----------------------------------------------------
+    hello                 |  world
+       \:vs <file?>       | (v)ertical (s)plit current window. Add file to open that file as well
+       \:sp <file?>       | horizontal (sp)lit current window. Add file to open that file as well
+        <ctrl w>         | use j,k,l,h along with this to move in that direction, to navigate splits
+   <ctrl w> <ctrl w>     | cycle through windows
+            \:q           | close split you're in right now
+           \:only         | close all other splits but current
+      \:set scrollbind    | do this in each of the windows if you want them to scroll together (useful when comparing code)
+    <ctrl w> [N] -       | Decrease current window height by N (default 1)
+    <ctrl w> [N] +       | Increase current window height by N (default 1)
+    <ctrl w> [N] <       | Decrease current window width by N (default 1)
+    <ctrl w> [N] >       | Increase current window width by N (default 1)
+        <ctrl w>         | maximize current window vertically
+       <ctrl w> \|       | maximize current window horizontally
+       <ctrl w> =        | make all equal size
 
 Buffers in vim are awesome though learning to use them can be a bit
 unintuitive. People are always like where did that file disappear to
@@ -175,42 +174,42 @@ when I opened this new file with :e or something.
 What's interesting is that internally, splits and even tabs are
 essentially buffers. All that changes is how you view them.
 
-      Command     Description
-  --------------- ---------------------------------------------------------------------------------------------------------------------------------------------
-        :ls       list all buffers
-    :e filename   can tab-complete the filename, but opens the file in current buffer making your other file \"disappear\". :ls to see that it's still there.
-        :q        quits out of vim, AND all buffers. Can be used to close current split
-        :bn       navigate to (n)ext buffer
-        :bp       navigate to (p)revious buffer
-     :b\<num\>    navigate to buffer number \<num\>
-   :b\<partial\>  navigate to buffer with name where partial is a substring
-        :bd       delete current buffer; fails if unsaved. add ! to override
+  Command    | Description
+  ---------------|---------------------------------------------------------------------------------------------------------------------------------------------
+        :ls      | list all buffers
+    :e filename  | can tab-complete the filename, but opens the file in current buffer making your other file \"disappear\". :ls to see that it's still there.
+        :q       | quits out of vim, AND all buffers. Can be used to close current split
+        :bn      | navigate to (n)ext buffer
+        :bp      | navigate to (p)revious buffer
+     :b\<num\>   | navigate to buffer number \<num\>
+   :b\<partial\> | navigate to buffer with name where partial is a substring
+        :bd      | delete current buffer; fails if unsaved. add ! to override
 
 Let's say you've come from sublime or something, and just can't live
 without tabs. Well that's there too\... (I don't use tabs very much so
 credits to <https://vim.fandom.com/wiki/Using_tab_pages> for the info,
 and sorry if anything important is missing)
 
-      Command     Description
-  --------------- ---------------------------------------------------------------------
-       :tabs      list all tabs including their displayed windows
-      :tabm 0     move current tab to first
-       :tabm      move current tab to last
-      :tabm i     move current tab to position i+1
-       :tabn      go to next tab
-       :tabp      go to previous tab
-     :tabfirst    go to first tab
-     :tablast     go to last tab
-        gt        go to next tab
-        gT        go to previous tab
-        igt       go to tab in position i
-    :tab split    copy the current window to a new tab of its own
-   :tabedit file  edit specified file in a new tab
-   :tabfind file  open a new tab with filename given, searching the 'path' to find it
-     :tabclose    close current tab
-    :tabclose i   close i-th tab
-     :tabonly     close all other tabs (show only the current tab)
-    :tab split    copy the current window to a new tab of its own
+   Command       | Description
+  ---------------|---------------------------------------------------------------------
+       :tabs     | list all tabs including their displayed windows
+      :tabm 0    | move current tab to first
+       :tabm     | move current tab to last
+      :tabm i    | move current tab to position i+1
+       :tabn     | go to next tab
+       :tabp     | go to previous tab
+     :tabfirst   | go to first tab
+     :tablast    | go to last tab
+        gt       | go to next tab
+        gT       | go to previous tab
+        igt      | go to tab in position i
+    :tab split   | copy the current window to a new tab of its own
+   :tabedit file | edit specified file in a new tab
+   :tabfind file | open a new tab with filename given, searching the 'path' to find it
+     :tabclose   | close current tab
+    :tabclose i  | close i-th tab
+     :tabonly    | close all other tabs (show only the current tab)
+    :tab split   | copy the current window to a new tab of its own
 
 Congrats! You now know enough vim to impress your friends and think
 you're proficient at it. The beauty in a tool isn't learning how to use
@@ -263,19 +262,20 @@ $$\{operator\}\{motion\}$$
 Operators
 ---------
 
-   Popular Operators  Description
-  ------------------- ----------------------------------------------------------------------------------------------
-           d          (d)elete
-           c          (c)hange (delete and go to insert mode)
-          \>          right shift (indent)
-          \<          left shift (un-indent)
-           v          (v)isually select
-           y          (y)ank
-           p          (p)ut (paste) after cursor. Not an operator in the conventional sense but still added here .
-          g'          toggle case (tildy looks like a wave going up and down)
-          gu          lower case
-          gU          (U)pper case
-           =          format code
+   Popular Operators | Description
+  -------------------|------------------------------------------------------------
+           d         | (d)elete
+           c         | (c)hange (delete and go to insert mode)
+          \>         | right shift (indent)
+          \<         | left shift (un-indent)
+           v         | (v)isually select
+           y         | (y)ank
+           p         | (p)ut (paste) after cursor. Not an operator in the
+                     | conventional sense but still added here .
+          g'         | toggle case (tildy looks like a wave going up and down)
+          gu         | lower case
+          gU         | (U)pper case
+           =         | format code
 
 Some comments on the operators:
 
@@ -296,12 +296,13 @@ Some comments on the operators:
     objects(try using visual box and move down a few lines, then press
     I, type something and press Esc.)
 
-      --- -------------------------
-       D  deletes til end of line
-       C  changes til end of line
-       Y  copies line
-       P  Pastes before cursor
-      --- -------------------------
+     Keystroke  |  Action
+      ---|-------------------------
+       D | deletes til end of line
+       C | changes til end of line
+       Y | copies line
+       P | Pastes before cursor
+      ---|-------------------------
 
 Motions and More
 ----------------
@@ -309,20 +310,20 @@ Motions and More
 The \"noun\" part of the command construct can be quite nuanced. There
 are of course easy nouns, and a little more complicated nouns.
 
-    Motion    Description
-  ----------- --------------------------------------
-    h,j,k,l   left, down, up, right
-      w,W     to start of next word or WORD
-      b,B     to start of previous word or WORD
-      e,E     to end of word or WORD
-      \$      to end of line
-       '      to first non-empty character in line
-       G      end of document
-      gg      start of document
-   f\<char\>  til (and including) \<char\>
-   t\<char\>  til \<char\>
-     /text    til text forwards
-     ?text    til text backwards
+   Motion   | Description
+  -----------|--------------------------------------
+    h,j,k,l  | left, down, up, right
+      w,W    | to start of next word or WORD
+      b,B    | to start of previous word or WORD
+      e,E    | to end of word or WORD
+      \$     | to end of line
+       '     | to first non-empty character in line
+       G     | end of document
+      gg     | start of document
+   f\<char\> | til (and including) \<char\>
+   t\<char\> | til \<char\>
+     /text   | til text forwards
+     ?text   | til text backwards
 
 Each of the operators can also take a count before them, to increase
 their effectiveness. $$\{count\}\{motion\}$$ While count can't be
@@ -390,16 +391,16 @@ applied\...check it out :)
 
 For now, look at the awesome objects that you have access to with these
 
-   Text Object  Description
-  ------------- --------------------------------------------------
-       iw       inner word
-       it       inner tag (between \<tag\>text\</tag\>)
-       i\"      inner quotes
-       i'       inner quotes
-       ip       inner paragraph
-       aw       around word
-       as       around sentence
-       a'       around quotes (including the quotes essentially)
+   Text Object | Description
+  -------------|--------------------------------------------------
+       iw      | inner word
+       it      | inner tag (between \<tag\>text\</tag\>)
+       i\"     | inner quotes
+       i'      | inner quotes
+       ip      | inner paragraph
+       aw      | around word
+       as      | around sentence
+       a'      | around quotes (including the quotes essentially)
 
 You can essentially do inner \<anything\> and around \<anything\> try:
 
@@ -672,12 +673,12 @@ vim.
 
 After that you can use:
 
-    Command   Description
-  ----------- -------------------------------------------------
-    ctrl \]   Navigate to definition of function across files
-    ctrl t    go back along tag stack
-   g ctrl \]  if ambgious tag that you need to jump to
-     g \]     Find all occurences of keyword
+  Command  | Description
+  -----------|-------------------------------------------------
+    ctrl \]  | Navigate to definition of function across files
+    ctrl t   | go back along tag stack
+   g ctrl \] | if ambigious tag that you need to jump to
+     g \]    | Find all occurences of keyword
 
 This will save you tremendous amounts of time. Ctags support is inbuilt
 with vim, just may not be so with your shell, thus the installation.
@@ -693,12 +694,12 @@ However don't both installing anything that is not semantic autocomplete
 as you could just remap the default commands to your preferred keys and
 have it work just out of the box.
 
-      Command      Description
-  ---------------- -------------------------------------------------------
-   ctrl x ctrl n   autocomplete within current file (do it while typing)
-   ctrl x ctrl f   file name autocomplete
-   ctrl n, ctrl p  go up or down through suggestions
-   ctrl x ctrl \]  ctags based autocomplete across files
+      Command     | Description
+  ----------------|-------------------------------------------------------
+   ctrl x ctrl n  | autocomplete within current file (do it while typing)
+   ctrl x ctrl f  | file name autocomplete
+   ctrl n, ctrl p | go up or down through suggestions
+   ctrl x ctrl \] | ctags based autocomplete across files
 
 ### Snippets
 
