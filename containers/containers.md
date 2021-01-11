@@ -56,14 +56,14 @@ sudo chroot test_dir /bin/bash
 Why does this error occur? Under the hood, bash needs glibc which isn't present in our chrooted directory structure. Also we'll need some of the other commands like `ls` and stuff so lets grab those. Instead of copying them over (which would also work perfectly fine), we'll bind mount some of the directories. By opening up another connection to the vm, we can play around with the files in the mount path and see what it looks like in our chrooted instance as well.
 
 ```
-mkdir -p test_dir/lib
-mkdir -p test_dir/lib64
-mkdir -p test_dir/usr
-sudo mount -o bind /lib test_dir/lib/
-sudo mount -o bind /lib64 test_dir/lib64/
-sudo mount -o bind /usr test_dir/usr/
-cp /bin/ls test_dir/bin/
-sudo chroot test_dir /bin/bash
+> mkdir -p test_dir/lib
+> mkdir -p test_dir/lib64
+> mkdir -p test_dir/usr
+> sudo mount -o bind /lib test_dir/lib/
+> sudo mount -o bind /lib64 test_dir/lib64/
+> sudo mount -o bind /usr test_dir/usr/
+> cp /bin/ls test_dir/bin/
+> sudo chroot test_dir /bin/bash
 ```
 
 Playing around with it a bit, you'll see that you can't really exit the chrooted instance unless you kill the process (ctrl d). Navigating around to the other parts of the directory structure looks impossible though right. `cd ..` at `/` yields the same directory.
@@ -81,12 +81,13 @@ This structure we've created is called a chroot jail. However if a program withi
 
 ## No Sharing!
 
-Refer [3] for examples as well
+Refer [3] for examples as well.
+
 Anyway, we've digressed. The point of talking about chroot was to show isolation of information. At this point we've sort of isolated the filesystem right? But a filesystem isn't the only part of a computer right? What about other stuff? Instead of copying just ls, lets mount bin within our chrooted instance as well (mainly for convenience. We get all of our executables then). We didn't do this before to prove that the executables aren't actually necessary.
 
 ```
-sudo mount -o bind /bin test_dir/bin/
-sudo chroot test_dir /bin/bash
+> sudo mount -o bind /bin test_dir/bin/
+> sudo chroot test_dir /bin/bash
 ```
 
 With our full set of executables, we can now pretty much explore all the stuff we'd normally do within the machine. Let's look at the processes
@@ -102,8 +103,47 @@ Error, do this: mount -t proc proc /proc
 12063 ?        00:00:00 ps
 ```
 
-Executing `ps -aux` shows us pretty much all the processes running on the vm. That's very un-container-like. We want isolated systems. It's not very isolated if I can kill other processes(`pkill <pid>`). You can try running a command like `top` and viewing it from the vm itself via `ps -aux | grep top` (do another `vagrant ssh` in a separate shell), and then kill the process as well.
+Executing `ps -aux` shows us pretty much all the processes running on the vm. That's very un-container-like. We want isolated systems. It's not very isolated if I can kill other processes(`pkill <pid>`). You can try running a command like `top` and viewing it from the vm itself via `ps -aux | grep top` (do another `vagrant ssh` in a separate shell), and then kill the process as well. Vice versa as well (run `top` on main machine and view/kill it from chroot)
 
+
+So how do we fix this issue? Linux natively provides us the ability to create restricted namespaces. With these namespaces, you can create a restricted view of shared resources for a new process. Complicated words, but lets take a look at what it would look like, using the `unshare` [https://linux.die.net/man/2/unshare] command.
+
+(Use the previous steps to setup the folders and all)
+```
+> sudo unshare -p -f
+> sudo chroot test_dir /bin/bash
+> mount -t proc proc /proc
+> ps -A
+  PID TTY          TIME CMD
+    1 ?        00:00:00 bash
+   17 ?        00:00:00 bash
+   20 ?        00:00:00 ps
+```
+
+We notice here that our PID is 1. Try running top on the main machine and searching for it here now, and we'll see that it is no longer visible. What happened? Let's quickly examine the commands that we ran. Quick look at the man page of `unshare` yields:
+```
+-p, --pid[=file]
+        Unshare the pid namespace. If file is specified then persistent namespace is created by bind mount. See also the --fork and --mount-proc options.
+
+-f, --fork
+        Fork the specified program as a child process of unshare rather than running it directly.  This is useful when creating a new pid namespace.
+```
+
+sing thin wrappers on native syscalls, we were able to easily create a new process without access to the original (host) pid namespace. Quite container-like. Naturally we can look a bit further and see all the options which unshare provides us with. More advanced configuration if you will. 
+Anyways, from this we kind of understand that you can restrict views of quite a few parts of the system from a process.
+
+
+Only one part left to complete this part of the story. How do I enter my container?
+Lets see after the previous step, this is our output:
+```
+> ps aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+0            1  0.0  0.5  21376  5140 ?        S    05:31   0:00 -bash
+0           31  0.0  0.3  19840  3648 ?        S    06:24   0:00 /bin/bash
+0           35  0.0  0.3  36080  3120 ?        R+   06:25   0:00 ps aux
+bash-4.3#
+```
+Now go look for this `/bin/bash` process on the host. `ps aux | grep /bin/bash | grep root`. We can view all the process related information by examining the directory `/proc/<pid>` and it's namespace related information at `/proc/<pid>/ns`. Entering a container is essentially just entering the 
 
 
 
