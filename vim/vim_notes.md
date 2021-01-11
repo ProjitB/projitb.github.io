@@ -98,8 +98,8 @@ In Normal Mode:
  |    zz         |  move current line center of screen
  |     ^         |  move to first non whitespace character in line (useful while coding)
  |    '.         |  move to last edit point 
- | f <char>    |  move (f)orward to first character in that line which matches that character
- | F <char>    |  move backward to first character in that line which matches that character
+ | f < char >    |  move (f)orward to first character in that line which matches that character
+ | F < char >    |  move backward to first character in that line which matches that character
  |   /text       |  searches forward for text in doc. *n* and *N* to navigate
  |   ?text       |  searches backward for text in doc. *n* and *N* to navigate
 
@@ -149,23 +149,23 @@ Fancy
 You see other \"cool\" people using fancy splits and stuff. here are the
 basics on how to use those.
 
-   Command                | Description
-  ------------------------|----------------------------------------------------
-    hello                 |  world
-       \:vs <file?>       | (v)ertical (s)plit current window. Add file to open that file as well
-       \:sp <file?>       | horizontal (sp)lit current window. Add file to open that file as well
-        <ctrl w>         | use j,k,l,h along with this to move in that direction, to navigate splits
-   <ctrl w> <ctrl w>     | cycle through windows
-            \:q           | close split you're in right now
-           \:only         | close all other splits but current
-      \:set scrollbind    | do this in each of the windows if you want them to scroll together (useful when comparing code)
-    <ctrl w> [N] -       | Decrease current window height by N (default 1)
-    <ctrl w> [N] +       | Increase current window height by N (default 1)
-    <ctrl w> [N] <       | Decrease current window width by N (default 1)
-    <ctrl w> [N] >       | Increase current window width by N (default 1)
-        <ctrl w>         | maximize current window vertically
-       <ctrl w> \|       | maximize current window horizontally
-       <ctrl w> =        | make all equal size
+  | Command                | Description
+  |------------------------|----------------------------------------------------
+  |  hello                 |  world
+  |     \:vs < file? >       | (v)ertical (s)plit current window. Add file to open that file as well
+  |     \:sp < file? >       | horizontal (sp)lit current window. Add file to open that file as well
+  |      < ctrl w >         | use j,k,l,h along with this to move in that direction, to navigate splits
+  | < ctrl w > < ctrl w >     | cycle through windows
+  |          \:q           | close split you're in right now
+  |         \:only         | close all other splits but current
+  |    \:set scrollbind    | do this in each of the windows if you want them to scroll together (useful when comparing code)
+  |  < ctrl w > [N] -       | Decrease current window height by N (default 1)
+  |  < ctrl w > [N] +       | Increase current window height by N (default 1)
+  |  < ctrl w > [N] <       | Decrease current window width by N (default 1)
+  |  < ctrl w > [N] >       | Increase current window width by N (default 1)
+  |      < ctrl w >         | maximize current window vertically
+  |     < ctrl w > \|       | maximize current window horizontally
+  |     < ctrl w > =        | make all equal size
 
 Buffers in vim are awesome though learning to use them can be a bit
 unintuitive. People are always like where did that file disappear to
