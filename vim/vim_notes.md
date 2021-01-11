@@ -694,12 +694,12 @@ However don't both installing anything that is not semantic autocomplete
 as you could just remap the default commands to your preferred keys and
 have it work just out of the box.
 
-      Command     | Description
-  ----------------|-------------------------------------------------------
-   ctrl x ctrl n  | autocomplete within current file (do it while typing)
-   ctrl x ctrl f  | file name autocomplete
-   ctrl n, ctrl p | go up or down through suggestions
-   ctrl x ctrl \] | ctags based autocomplete across files
+  |    Command     | Description
+  |----------------|-------------------------------------------------------
+  | ctrl x ctrl n  | autocomplete within current file (do it while typing)
+  | ctrl x ctrl f  | file name autocomplete
+  | ctrl n, ctrl p | go up or down through suggestions
+  | ctrl x ctrl ] | ctags based autocomplete across files
 
 ### Snippets
 
