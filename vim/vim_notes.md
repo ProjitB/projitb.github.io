@@ -12,7 +12,7 @@ Why Vim is Awesome
 
 So the sad part is that most online tutorials on vim focus only on the
 absolute basics of vim, and not why vim is awesome. To a beginner it
-looks scary as $$:wq$$ and $$dd$$ are not exactly the most intuitive
+looks scary as __:wq__ and __dd__ are not exactly the most intuitive
 things in vim. If you're reading this document, I assume you probably
 know those already, and are actually looking to figure out why people
 rave about vim, and what the true power of this \"text editor\" is.
@@ -151,21 +151,20 @@ basics on how to use those.
 
   | Command                | Description
   |------------------------|----------------------------------------------------
-  |  hello                 |  world
-  |     \:vs < file? >       | (v)ertical (s)plit current window. Add file to open that file as well
-  |     \:sp < file? >       | horizontal (sp)lit current window. Add file to open that file as well
-  |      < ctrl w >         | use j,k,l,h along with this to move in that direction, to navigate splits
-  | < ctrl w > < ctrl w >     | cycle through windows
+  |     \:vs \<file?\>       | (v)ertical (s)plit current window. Add file to open that file as well
+  |     \:sp \<file?\>       | horizontal (sp)lit current window. Add file to open that file as well
+  |      \<ctrl w\>         | use j,k,l,h along with this to move in that direction, to navigate splits
+  | \<ctrl w\> \<ctrl w\>     | cycle through windows
   |          \:q           | close split you're in right now
   |         \:only         | close all other splits but current
   |    \:set scrollbind    | do this in each of the windows if you want them to scroll together (useful when comparing code)
-  |  < ctrl w > [N] -       | Decrease current window height by N (default 1)
-  |  < ctrl w > [N] +       | Increase current window height by N (default 1)
-  |  < ctrl w > [N] <       | Decrease current window width by N (default 1)
-  |  < ctrl w > [N] >       | Increase current window width by N (default 1)
-  |      < ctrl w >         | maximize current window vertically
-  |     < ctrl w > \|       | maximize current window horizontally
-  |     < ctrl w > =        | make all equal size
+  |  \<ctrl w\> [N] -       | Decrease current window height by N (default 1)
+  |  \<ctrl w\> [N] +       | Increase current window height by N (default 1)
+  |  \<ctrl w\> [N] <       | Decrease current window width by N (default 1)
+  |  \<ctrl w\> [N] >       | Increase current window width by N (default 1)
+  |      \< ctrl w\>         | maximize current window vertically
+  |    \< ctrl w\> \|       | maximize current window horizontally
+  |    \< ctrl w\> =        | make all equal size
 
 Buffers in vim are awesome though learning to use them can be a bit
 unintuitive. People are always like where did that file disappear to
@@ -257,21 +256,20 @@ you to input the noun. It then takes the verb and applies it onto that
 noun.
 
 In proper vim jargon, these commands are created by:
-$$\{operator\}\{motion\}$$
+___{operator}{motion}___
 
 Operators
 ---------
 
    Popular Operators | Description
-  -------------------|------------------------------------------------------------
+  -------------------|--------------------------------------------------------------------------------------------------
            d         | (d)elete
            c         | (c)hange (delete and go to insert mode)
           \>         | right shift (indent)
           \<         | left shift (un-indent)
            v         | (v)isually select
            y         | (y)ank
-           p         | (p)ut (paste) after cursor. Not an operator in the
-                     | conventional sense but still added here .
+           p         | (p)ut (paste) after cursor. Not an operator in the conventional sense but still added here.
           g'         | toggle case (tildy looks like a wave going up and down)
           gu         | lower case
           gU         | (U)pper case
