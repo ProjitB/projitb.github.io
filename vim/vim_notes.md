@@ -261,19 +261,19 @@ ___{operator}{motion}___
 Operators
 ---------
 
-   Popular Operators | Description
-  -------------------|--------------------------------------------------------------------------------------------------
-           d         | (d)elete
-           c         | (c)hange (delete and go to insert mode)
-          \>         | right shift (indent)
-          \<         | left shift (un-indent)
-           v         | (v)isually select
-           y         | (y)ank
-           p         | (p)ut (paste) after cursor. Not an operator in the conventional sense but still added here.
-          g'         | toggle case (tildy looks like a wave going up and down)
-          gu         | lower case
-          gU         | (U)pper case
-           =         | format code
+  | Popular Operators | Description
+  |-------------------|--------------------------------------------------------------------------------------------------
+  |         d         | (d)elete
+  |         c         | (c)hange (delete and go to insert mode)
+  |        \>         | right shift (indent)
+  |        \<         | left shift (un-indent)
+  |         v         | (v)isually select
+  |         y         | (y)ank
+  |         p         | (p)ut (paste) after cursor. Not an operator in the conventional sense but still added here.
+  |        g'         | toggle case (tildy looks like a wave going up and down)
+  |        gu         | lower case
+  |        gU         | (U)pper case
+  |         =         | format code
 
 Some comments on the operators:
 
