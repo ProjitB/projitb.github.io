@@ -173,16 +173,16 @@ when I opened this new file with :e or something.
 What's interesting is that internally, splits and even tabs are
 essentially buffers. All that changes is how you view them.
 
-  Command    | Description
-  ---------------|---------------------------------------------------------------------------------------------------------------------------------------------
-        :ls      | list all buffers
-    :e filename  | can tab-complete the filename, but opens the file in current buffer making your other file \"disappear\". :ls to see that it's still there.
-        :q       | quits out of vim, AND all buffers. Can be used to close current split
-        :bn      | navigate to (n)ext buffer
-        :bp      | navigate to (p)revious buffer
-     :b\<num\>   | navigate to buffer number \<num\>
-   :b\<partial\> | navigate to buffer with name where partial is a substring
-        :bd      | delete current buffer; fails if unsaved. add ! to override
+ |    Command    |  Description
+ |---------------|---------------------------------------------------------------------------------------------------------------------------------------------------
+ |      :ls      |  list all buffers
+ |  :e filename  |  can tab-complete the filename, but opens the file in current buffer making your other file \"disappear\".   :ls to see that it's still there.
+ |      :q       |  quits out of vim, AND all buffers. Can be used to close current split
+ |      :bn      |  navigate to (n)ext buffer
+ |      :bp      |  navigate to (p)revious buffer
+ |   :b\<num\>   |  navigate to buffer number \<num\>
+ | :b\<partial\> |  navigate to buffer with name where partial is a substring
+ |      :bd      |  delete current buffer; fails if unsaved. add ! to override
 
 Let's say you've come from sublime or something, and just can't live
 without tabs. Well that's there too\... (I don't use tabs very much so
@@ -389,16 +389,16 @@ applied\...check it out :)
 
 For now, look at the awesome objects that you have access to with these
 
-   Text Object | Description
-  -------------|--------------------------------------------------
-       iw      | inner word
-       it      | inner tag (between \<tag\>text\</tag\>)
-       i\"     | inner quotes
-       i'      | inner quotes
-       ip      | inner paragraph
-       aw      | around word
-       as      | around sentence
-       a'      | around quotes (including the quotes essentially)
+  |Text Object | Description
+  |------------|--------------------------------------------------
+  |    iw      | inner word
+  |    it      | inner tag (between \<tag\>text\</tag\>)
+  |    i\"     | inner quotes
+  |    i'      | inner quotes
+  |    ip      | inner paragraph
+  |    aw      | around word
+  |    as      | around sentence
+  |    a'      | around quotes (including the quotes essentially)
 
 You can essentially do inner \<anything\> and around \<anything\> try:
 
