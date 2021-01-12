@@ -671,12 +671,12 @@ vim.
 
 After that you can use:
 
-  Command  | Description
+  Command  |   Description
   -----------|-------------------------------------------------
-    ctrl \]  | Navigate to definition of function across files
+    ctrl ]  | Navigate to definition of function across files
     ctrl t   | go back along tag stack
-   g ctrl \] | if ambigious tag that you need to jump to
-     g \]    | Find all occurences of keyword
+   g ctrl ] | if ambigious tag that you need to jump to
+     g ]    | Find all occurences of keyword
 
 This will save you tremendous amounts of time. Ctags support is inbuilt
 with vim, just may not be so with your shell, thus the installation.
