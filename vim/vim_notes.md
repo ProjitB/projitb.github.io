@@ -386,11 +386,11 @@ For now, look at the awesome objects that you have access to with these
 
 You can essentially do inner \<anything\> and around \<anything\> try:
 
--    i\{ 
+-    `i{` 
 
--    i< 
+-    `i<` 
 
--    i>  (same results as previous) 
+-    `i>`  (same results as previous) 
 
 You've probably understood that i and a can be used on pretty much all
 the same things. i usually implies inside and not anything else. a
@@ -403,11 +403,11 @@ awesome.
 So now for some truly magical stuff try combining
 $$\{operator\}\{text object\}$$ Examples:
 
--    ciw 
+-    `ciw` 
 
--    ci" 
+-    `ci"` 
 
--    di) 
+-    `di)` 
 
 The possiblities are endless :)
 
