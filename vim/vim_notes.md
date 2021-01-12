@@ -329,23 +329,23 @@ applied to all motions, it can to many.
 
 Examples:
 
--    d2j : delete 2 lines (current and below)
+-    `d2j` : delete 2 lines (current and below)
 
--    c2w : change 2 words
+-    `c2w` : change 2 words
 
--    3k : move up 3 lines
+-    `3k` : move up 3 lines
 
--    7l : move right 7 characters
+-    `7l` : move right 7 characters
 
 So these motions can be used by itself to navigate the document while in
 normal mode. But coupled with an operator you can do cool things.
 
--    df" :  delete til and including \"
+-    `df"` :  delete til and including \"
 
--    c/goal<CR> :  This would change everything til the word goal. \<CR\> is
+-    `c/goal<CR>` :  This would change everything til the word goal. \<CR\> is
      carriage return, which is just press enter.
 
--   d2w : delete 2 words
+-   `d2w` : delete 2 words
 
 Text Objects
 ------------
@@ -361,9 +361,9 @@ movement as well
 
 Take a look at two main modifiers:
 
--    i : inner
+-    `i` : inner
 
--    a : around
+-    `a` : around
 
 These are sometimes called modifiers, which are added to other
 motions/objects.
