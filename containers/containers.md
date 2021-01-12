@@ -206,9 +206,9 @@ Heavily inspired by the video (procedure will also be very similar, so definitel
 
 
 ## References:
-- [1] https://en.wikipedia.org/wiki/Chroot
-- [2] http://www.unixwiz.net/techtips/mirror/chroot-break.html
-- [3] https://ericchiang.github.io/post/containers-from-scratch/
-- [4] https://www.youtube.com/watch?v=gMpldbcMHuI
-- [5] https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/
-- [6] https://blog.lizzie.io/linux-containers-in-500-loc.html
+- 1 [https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
+- 2 [http://www.unixwiz.net/techtips/mirror/chroot-break.html](http://www.unixwiz.net/techtips/mirror/chroot-break.html)
+- 3 [https://ericchiang.github.io/post/containers-from-scratch/](https://ericchiang.github.io/post/containers-from-scratch/)
+- 4 [https://www.youtube.com/watch?v=gMpldbcMHuI](https://www.youtube.com/watch?v=gMpldbcMHuI)
+- 5 [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/)
+- 6 [https://blog.lizzie.io/linux-containers-in-500-loc.html](https://blog.lizzie.io/linux-containers-in-500-loc.html)
