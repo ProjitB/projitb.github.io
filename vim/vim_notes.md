@@ -329,35 +329,23 @@ applied to all motions, it can to many.
 
 Examples:
 
--    d2j 
+-    d2j : delete 2 lines (current and below)
 
-    \- delete 2 lines (current and below)
+-    c2w : change 2 words
 
--    c2w 
+-    3k : move up 3 lines
 
-    \- change 2 words
-
--    3k 
-
-    \- move up 3 lines
-
--    7l 
-
-    \- move right 7 characters
+-    7l : move right 7 characters
 
 So these motions can be used by itself to navigate the document while in
 normal mode. But coupled with an operator you can do cool things.
 
--    df" 
+-    df" :  delete til and including \"
 
-    \- delete til and including \"
+-    c/goal<CR> :  This would change everything til the word goal. \<CR\> is
+     carriage return, which is just press enter.
 
--    c/goal<CR> 
-
-    \- This would change everything til the word goal. \<CR\> is
-    carriage return, which is just press enter.
-
--   d2w - delete 2 words
+-   d2w : delete 2 words
 
 Text Objects
 ------------
@@ -373,13 +361,9 @@ movement as well
 
 Take a look at two main modifiers:
 
--    i 
+-    i : inner
 
-    \- inner
-
--    a 
-
-    \- around
+-    a : around
 
 These are sometimes called modifiers, which are added to other
 motions/objects.
@@ -496,33 +480,18 @@ This was setting a boolean value within vim.
 
 Booleans in vim are weird. Generic form of accessing with some examples:
 
--    :set <name> 
+-    `:set <name>` : Makes boolean value true
 
-    \- Makes boolean value true
+-    `:set no<name>` : Makes boolean value false
 
--    :set no<name> 
+-   try 
+    - `:set number` and `:set nonumber`
 
-    \- Makes boolean value false
+    - `:set <name>!` : Toggles boolean value
 
--   try
+-    :set <name>?  :  Checks current state of boolean value
 
-         :set number 
-
-    and
-
-        :set nonumber 
-
--    :set <name>! 
-
-    \- Toggles boolean value
-
--    :set <name>? 
-
-    \- Checks current state of boolean value
-
--    :set number numberwidth=4 
-
-    \- Can set multiple things at once
+-    :set number numberwidth=4 : Can set multiple things at once
 
 While executing things in vim we use the :
 
