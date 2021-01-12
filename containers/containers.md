@@ -17,7 +17,7 @@ The revered '/' directory. The top of the food chain. Is there anything beyond i
 
 Actually, any directory could be a root directory, as long as you couldn't get out of it..right? Like as long as you're not allowed to do a `cd ..`, how could you ever tell the difference?
 
-In comes `chroot`. Standing for change-root (I think? [1]), it's a wrapper around the syscall which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the basis of containers....so let's play around with it a bit right?
+In comes `chroot`. Standing for change-root (I think? [1](https://en.wikipedia.org/wiki/Chroot)), it's a wrapper around the syscall which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the basis of containers....so let's play around with it a bit right?
 
 
 To not mess up my own system with weird syscalls and commands, I use a vagrant vm to try everything out, so all commands given here will be based on that.
@@ -76,12 +76,12 @@ bin  lib  lib64  proc  usr
 bin  lib  lib64  proc  usr
 ```
 
-This structure we've created is called a chroot jail. However if a program within it is run with root privileges, it is possible to "break out" [2]. I've not really played with trying to break out, but given that processes with root privileges can access and modify pretty much any part of a system, it seems reasonable that this should be possible.
+This structure we've created is called a chroot jail. However if a program within it is run with root privileges, it is possible to "break out" [2](http://www.unixwiz.net/techtips/mirror/chroot-break.html). I've not really played with trying to break out, but given that processes with root privileges can access and modify pretty much any part of a system, it seems reasonable that this should be possible.
 
 
 ## No Sharing!
 
-Refer [3] for examples as well.
+Refer [3](https://ericchiang.github.io/post/containers-from-scratch/) for examples as well.
 
 Anyway, we've digressed. The point of talking about chroot was to show isolation of information. At this point we've sort of isolated the filesystem right? But a filesystem isn't the only part of a computer right? What about other stuff? Instead of copying just ls, lets mount bin within our chrooted instance as well (mainly for convenience. We get all of our executables then). We didn't do this before to prove that the executables aren't actually necessary.
 
@@ -186,13 +186,13 @@ But taking this a step further...imagine that the directory were actually a moun
 
 
 ### Networking
-I don't think I can provide any better story or explanations regarding this topic than what is already present at [link](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/#fnr.15). Highly recommend going through this to understand the basics of how containers can communicate with one another. Using the same chrooted instance they setup basic networking and discovery. At some point in the future I may again replicate some of the examples here, once I have a better handle on networks :)
+I don't think I can provide any better story or explanations regarding this topic than what is already present at [5](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/#fnr.15). Highly recommend going through this to understand the basics of how containers can communicate with one another. Using the same chrooted instance they setup basic networking and discovery. At some point in the future I may again replicate some of the examples here, once I have a better handle on networks :)
 
 
 ### Resource Restrictions
 
 Present in `/sys/fs/cgroup` is the holy grail of control of containers. All the fancy restrictions on size, usage...etc all are controlled by cgroups aka control groups. Honestly, cgroups are a topic of their own right. But for the purpose of demonstrating restrictions on a container, all we must to is show that this feature can easily be used to restrict the amount of X a process can use.
-For now I shall leave it to you for a simple google search on the topic :).  [3] also has a simple example restricting memory.
+For now I shall leave it to you for a simple google search on the topic :). [3](https://ericchiang.github.io/post/containers-from-scratch/) also has a simple example restricting memory.
 
 ## Interlude
 Up to this point, we've essentially seen that the high level features of a container, are all basically linux features. And yeah, that's pretty much the goal of me writing this. But there's one part of the story that's still missing. In the beginning I said that containers seem like full blown operating systems. So far all we've seen is just some shell / process running. Not very operating-system-like. Sure the top level directory structure LOOKS like the files you see normally, but that's only because we literally mounted our system files. Right? 
@@ -201,6 +201,7 @@ Given a process, we know how to make it act like a container. Or at the very lea
 
 
 ## Build that weird tar
+Heavily inspired by the video (procedure will also be very similar, so definitely give it a watch) [4](https://www.youtube.com/watch?v=gMpldbcMHuI), I definitely believe that a crucial part to understanding containers is that, well they are literally tar files. Restricting processes and all seems like something linux would be capable of. But until you actually build your own container from scratch, you just won't _feel_ it. So let's do exactly that.
 
 
 
