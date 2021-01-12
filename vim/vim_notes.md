@@ -308,20 +308,20 @@ Motions and More
 The \"noun\" part of the command construct can be quite nuanced. There
 are of course easy nouns, and a little more complicated nouns.
 
-   Motion   | Description
-  -----------|--------------------------------------
-    h,j,k,l  | left, down, up, right
-      w,W    | to start of next word or WORD
-      b,B    | to start of previous word or WORD
-      e,E    | to end of word or WORD
-      \$     | to end of line
-       '     | to first non-empty character in line
-       G     | end of document
-      gg     | start of document
-   f\<char\> | til (and including) \<char\>
-   t\<char\> | til \<char\>
-     /text   | til text forwards
-     ?text   | til text backwards
+  | Motion    |  Description
+  |-----------|-----------------------------------------
+  |  h,j,k,l  | left, down, up, right
+  |    w,W    | to start of next word or WORD
+  |    b,B    | to start of previous word or WORD
+  |    e,E    | to end of word or WORD
+  |    \$     | to end of line
+  |     '     | to first non-empty character in line
+  |     G     | end of document
+  |    gg     | start of document
+  | f\<char\> | til (and including) \<char\>
+  | t\<char\> | til \<char\>
+  |   /text   | til text forwards
+  |   ?text   | til text backwards
 
 Each of the operators can also take a count before them, to increase
 their effectiveness. $$\{count\}\{motion\}$$ While count can't be
@@ -671,12 +671,12 @@ vim.
 
 After that you can use:
 
-  Command  |   Description
-  -----------|-------------------------------------------------
-    ctrl ]  | Navigate to definition of function across files
-    ctrl t   | go back along tag stack
-   g ctrl ] | if ambigious tag that you need to jump to
-     g ]    | Find all occurences of keyword
+  |Command   |   Description
+  |----------|-----------------------------------------------------
+  | ctrl \]  |  Navigate to definition of function across files
+  | ctrl t   |  go back along tag stack
+  |g ctrl \] |  if ambigious tag that you need to jump to
+  |  g \]    |  Find all occurences of keyword
 
 This will save you tremendous amounts of time. Ctags support is inbuilt
 with vim, just may not be so with your shell, thus the installation.
