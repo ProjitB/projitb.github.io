@@ -201,7 +201,54 @@ Given a process, we know how to make it act like a container. Or at the very lea
 
 
 ## Build that weird tar
-Heavily inspired by the video (procedure will also be very similar, so definitely give it a watch) [4](https://www.youtube.com/watch?v=gMpldbcMHuI), I definitely believe that a crucial part to understanding containers is that, well they are literally tar files. Restricting processes and all seems like something linux would be capable of. But until you actually build your own container from scratch, you just won't _feel_ it. So let's do exactly that.
+Inspired by the video (procedure will also be very similar and the video itself is brilliant, so PLEASE give it a watch) [4](https://www.youtube.com/watch?v=gMpldbcMHuI), I definitely believe that a crucial part to understanding containers is understanding that, well, their filesystems are literally tarballs. Restricting processes and all seems like something linux would be capable of. But until you actually build your own container from scratch, you just won't _feel_ it. So let's do exactly that.
+
+
+Though as we've already seen, docker is essentially a wrapper around the core constructs of containers....lets use it to make our life a bit easier. Can we build our own docker image? Sure! It's just a tar.
+
+So I created a small directory structure:
+```
+> mkdir hello_world
+> mkdir -p hello_world/bin
+> mkdir -p hello_world/something
+> touch bin/abcd
+> echo "hello world" > hello_world/something/a.txt
+> tree hello_world/
+hello_world/
+├── bin
+│   └── abcd
+└── something
+    └── a.txt
+
+> tar czvf hello.tar hello_world
+```
+
+Let's make this into a docker image shall we?
+```
+> cat hello.tar | sudo docker import - hello    # sudo may or may not be required depending on how you installed docker
+```
+
+Only issue with this, as we saw with our original chrooted instances, is what do we run inside it? Let's bundle this with `bash` perhaps? Add in `ls` as well maybe. You know what? There's an easy way to get this stuff inside it. Add mounts (kind of like what we did before). We'll mount bin, lib, and lib64 (dependencies for some of the executables essentially). This is a temporary hack...we'll make our container end-to-end in a bit.
+
+```
+> # Change the next command with the apprpriate hash from (sudo?) docker images
+> sudo docker run -it -v /bin:/bin -v /lib:/lib -v /lib64:/lib64 784f52c46a8a /bin/bash
+```
+
+Voila! Look at that. We have a fully functional container. Some additional directories were created by docker as well in this process. `docker ps` and all will also show us that we have a fully functional container running.
+
+```
+bash-4.3# ls
+bin  dev  etc  hello_world  lib  lib64	proc  sys
+bash-4.3# ls hello_world
+bin  something
+bash-4.3# cat hello_world/something/a.txt
+hello world
+bash-4.3#
+```
+
+So without a dockerfile...or anything of the sort actually. We have a running container? Interesting...
+
 
 
 
