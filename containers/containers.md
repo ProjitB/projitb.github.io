@@ -247,15 +247,20 @@ hello world
 bash-4.3#
 ```
 
-So without a dockerfile...or anything of the sort actually. We have a running container? Interesting...
+So without a dockerfile...or anything of the sort actually, we have a running container? Interesting...
 
+## MyoL
+Make your own linux. Everything that a container does essentially boils down to what is in that tar ball. So we want to customize that to different distributions. Based on the video [4](https://www.youtube.com/watch?v=gMpldbcMHuI)
 
+Now, download `buildroot` from [7](https://buildroot.org/download.html). Extract and run `make menuconfig`. (may have to install some dependencies like ncurses and gcc). From this menu, you can configure various parts of the to-be linux container. You can, for example, remove the init system (under System Configuration), as containers do not require one. Then run `make` and wait.
 
+You can modify some parts of the files created to suit your own custom requirements. Then just tar it up and use it as a docker image :)
 
 ## References:
-- 1 [https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
-- 2 [http://www.unixwiz.net/techtips/mirror/chroot-break.html](http://www.unixwiz.net/techtips/mirror/chroot-break.html)
-- 3 [https://ericchiang.github.io/post/containers-from-scratch/](https://ericchiang.github.io/post/containers-from-scratch/)
-- 4 [https://www.youtube.com/watch?v=gMpldbcMHuI](https://www.youtube.com/watch?v=gMpldbcMHuI)
-- 5 [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/)
-- 6 [https://blog.lizzie.io/linux-containers-in-500-loc.html](https://blog.lizzie.io/linux-containers-in-500-loc.html)
+1. [https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
+2. [http://www.unixwiz.net/techtips/mirror/chroot-break.html](http://www.unixwiz.net/techtips/mirror/chroot-break.html)
+3. [https://ericchiang.github.io/post/containers-from-scratch/](https://ericchiang.github.io/post/containers-from-scratch/)
+4. [https://www.youtube.com/watch?v=gMpldbcMHuI](https://www.youtube.com/watch?v=gMpldbcMHuI)
+5. [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/)
+6. [https://blog.lizzie.io/linux-containers-in-500-loc.html](https://blog.lizzie.io/linux-containers-in-500-loc.html)
+7. [https://buildroot.org/download.html](https://buildroot.org/download.html)
