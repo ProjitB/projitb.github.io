@@ -7,8 +7,8 @@ I've noticed that I usually understand stuff better by building concepts up from
 
 Contents:
 - [Basic Intro](#the-very-basics)
-- [Beyond the /](#beyond-root)
-- [No Sharing! ](#no-sharing)
+- [Beyond Root](#beyond-root)
+- [No Sharing!](#no-sharing)
 - [Sometimes Sharing is Good?](#sometimes-sharing-is-good)
 - [Building that weird tar](#build-that-weird-tar)
 - [Buildroot: Make your own custom container](#myol)
@@ -266,7 +266,7 @@ Make your own linux. Everything that a container does essentially boils down to 
 - Run `make` and wait.
 - The part you want to add as a docker image is `output/images/rootfs.tar`
 
-For a bit more on my debugging experience with this: go to [here](../debugging/debugging.md#)
+For a bit more on my debugging experience with this: go to [here](./debugging/debugging.md#buildroot-for-custom-image)
 
 
 ## References:

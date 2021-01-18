@@ -3,7 +3,7 @@
 Debugging can be pretty painful, but sometimes it's quite fun to look back on. 
 
 Contents:
-- [Buildroot Stuff][#buildroot-for-custom-image]
+- [Buildroot Stuff](#buildroot-for-custom-image)
 
 ## Buildroot for custom image
 While playing around with buildroot to create a linux container...I ran into a couple issues.
