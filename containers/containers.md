@@ -1,9 +1,9 @@
 # Stuff about Containers
 
-So I've been working with containers are their associated management ecosystems(docker, kubernetes..) for a while now. And well, they can still seem a bit magical sometimes. How are we running a full operating system within this..container process thing.
- What even are containers?
+As containers become extremely popular, their core principals get lost in wrappers and abstractions. The point of this article is to map concepts used by containers to their base constructs, and in doing so, show that they are actually very simple. 
 
-I've noticed that I usually understand stuff better by building concepts up from the base. So through this, I plan to explain (and discover more about) containers, from their very basics. So while at first I thought there weren't too many resources on this topic, turns out there are a lot of well written blogs on it. I will link to other sites for their examples wherever relavant. 
+What may seem like complex virtualization is actually process management + tarballs.
+
 
 Contents:
 - [Basic Intro](#the-very-basics)
@@ -15,18 +15,16 @@ Contents:
 
 
 ## The very basics
-So processes exist. They can talk to each other, do some work, get compute resources etc etc. All processes running on your computer can be listed by ps or its flagged variants. But can processes run which you don't know of? 
-The question of isolating processes is essentially where the concept of containers stems from. In fact, containers are nothing but a process or group of processes, running in a kind of isolated manner from the rest of the computer.
+We know processes. They communicate, do work, use resources..etc. The `ps` command is also probably familiar (and its associated flags). But what about processes that we can't see on the system? A container is actually nothing but a process / group of processes running in an isolated manner from the rest of the computer. How do we achieve this isolation? Turns out linux has everything we need in-built! We just need to make use of what's already there for restricting: filesystem, views, and resources. On the way, we'll try and map these concepts to their corresponding wrappers in common tools like docker.
 
 
 ## Beyond Root
 
-The revered '/' directory. The top of the food chain. Is there anything beyond it? Running stuff like `cd ..` at the top level just returns you there. But imagine...is it actually special?
+The revered '/' directory. The top of the food chain...or is it. Is there anything beyond it? Running stuff like `cd ..` returns you there. But is it actually the root?
 
 Actually, any directory could be a root directory, as long as you couldn't get out of it..right? Like as long as you're not allowed to do a `cd ..`, how could you ever tell the difference?
 
-In comes `chroot`. Standing for change-root (I think? [1](https://en.wikipedia.org/wiki/Chroot)), it's a wrapper around the syscall which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the basis of containers....so let's play around with it a bit right?
-
+In comes `chroot` or change-root (I think? [1](https://en.wikipedia.org/wiki/Chroot)). It's a wrapper around the corresponding syscall, which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the crux of filesystem isolation for containers, so lets play around with it a bit..
 
 To not mess up my own system with weird syscalls and commands, I use a vagrant vm to try everything out, so all commands given here will be based on that.
 
@@ -38,7 +36,7 @@ vagrant ssh
 ```
 
 
-Ok so now we want to try out chroot to see what levels of isolation we can achieve with this. The claim was that we can essentially make any directory look like the root directory. So in our vm (or normal directory structure if you're feeling risky :) )
+Ok so now we want to try out chroot to see what levels of isolation we can achieve with this. The claim was that we can essentially make any directory look like the root directory. So in our vm (or normal directory structure if you're willing to take the risk :) )
 
 ```
 mkdir test_dir
@@ -61,7 +59,7 @@ sudo chroot test_dir /bin/bash
 > chroot: cannot change root directory to '/bin/bash': Not a directory
 ```
 
-Why does this error occur? Under the hood, bash needs glibc which isn't present in our chrooted directory structure. Also we'll need some of the other commands like `ls` and stuff so lets grab those. Instead of copying them over (which would also work perfectly fine), we'll bind mount some of the directories. By opening up another connection to the vm, we can play around with the files in the mount path and see what it looks like in our chrooted instance as well.
+Why does this error occur? Under the hood, bash needs glibc which isn't present in our chrooted directory structure. Also we'll need some of the other commands like `ls` and stuff so lets grab those. Instead of copying them over (which would also work perfectly), we'll bind mount some of the directories. By opening up another connection to the vm, we can mess around with the files in the mount path and see what it looks like in our chrooted instance as well.
 
 ```
 > mkdir -p test_dir/lib
@@ -74,7 +72,7 @@ Why does this error occur? Under the hood, bash needs glibc which isn't present 
 > sudo chroot test_dir /bin/bash
 ```
 
-Playing around with it a bit, you'll see that you can't really exit the chrooted instance unless you kill the process (ctrl d). Navigating around to the other parts of the directory structure looks impossible though right. `cd ..` at `/` yields the same directory.
+Playing around with it a bit, you'll see that you can't really exit the chrooted directory structure unless you kill the process (ctrl d). Navigating around to the other parts of the directory structure looks impossible though right. `cd ..` at `/` yields the same directory.
 
 ```
 > ls
@@ -84,7 +82,7 @@ bin  lib  lib64  proc  usr
 bin  lib  lib64  proc  usr
 ```
 
-This structure we've created is called a chroot jail. However if a program within it is run with root privileges, it is possible to "break out" [2](http://www.unixwiz.net/techtips/mirror/chroot-break.html). I've not really played with trying to break out, but given that processes with root privileges can access and modify pretty much any part of a system, it seems reasonable that this should be possible.
+This structure we've created is called a chroot jail. However if a program within it is run with root privileges, it is possible to "break out" [2](http://www.unixwiz.net/techtips/mirror/chroot-break.html). I've not personally tried these; but given that processes with root privileges can access and modify pretty much any part of a system, it seems reasonable.
 
 
 ## No Sharing!
@@ -128,7 +126,7 @@ So how do we fix this issue? Linux natively provides us the ability to create re
    20 ?        00:00:00 ps
 ```
 
-We notice here that our PID is 1. Try running top on the main machine and searching for it here now, and we'll see that it is no longer visible. What happened? Let's quickly examine the commands that we ran. Quick look at the man page of `unshare` yields:
+We notice here that our PID is 1. Try running `top` on the main machine and searching for it here now, and we'll see that it is no longer visible. What happened? Let's quickly examine the commands that we ran. A quick look at the man page of `unshare` yields:
 ```
 -p, --pid[=file]
         Unshare the pid namespace. If file is specified then persistent namespace is created by bind mount. See also the --fork and --mount-proc options.
@@ -255,7 +253,7 @@ hello world
 bash-4.3#
 ```
 
-So without a dockerfile...or anything of the sort actually, we have a running container? Interesting...
+So without a dockerfile...or anything of the sort actually, we have a running container? Admittedly we used our host's bin, lib and lib64 files. The only way to get around that would be to build our own...
 
 ## MyoL
 Make your own linux. Everything that a container does essentially boils down to what is in that tar ball. So we want to customize that to different distributions. Based on the video [4](https://www.youtube.com/watch?v=gMpldbcMHuI)
