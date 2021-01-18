@@ -7,10 +7,10 @@ I've noticed that I usually understand stuff better by building concepts up from
 
 Contents:
 - [Basic Intro](#the-very-basics)
-- [Beyond the /](#beyond-the-/)
-- [No Sharing! ](#no-sharing!)
-- [Sometimes Sharing is Good?](#sometimes-sharing-is-good?)
-- [Building that weird tar](#building-that-weird-tar)
+- [Beyond the /](#beyond-the)
+- [No Sharing! ](#no-sharing)
+- [Sometimes Sharing is Good?](#sometimes-sharing-is-good)
+- [Building that weird tar](#build-that-weird-tar)
 - [Buildroot: Make your own custom container](#myol)
 
 
