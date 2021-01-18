@@ -1,4 +1,4 @@
-# Stuff about Containers
+# Basics of Containers
 
 As containers become extremely popular, their core principals get lost in wrappers and abstractions. The point of this article is to map concepts used by containers to their base constructs, and in doing so, show that they are actually very simple. 
 
