@@ -266,7 +266,7 @@ Make your own linux. Everything that a container does essentially boils down to 
 - Run `make` and wait.
 - The part you want to add as a docker image is `output/images/rootfs.tar`
 
-For a bit more on my debugging experience with this: go to [here](./debugging/debugging.md#buildroot-for-custom-image)
+For a bit more on my debugging experience with this: go to [here](https://projitb.github.io/debugging/debugging.html#buildroot-for-custom-image)
 
 
 ## References:
