@@ -7,7 +7,7 @@ I've noticed that I usually understand stuff better by building concepts up from
 
 Contents:
 - [Basic Intro](#the-very-basics)
-- [Beyond the /](#beyond-the)
+- [Beyond the /](#beyond-root)
 - [No Sharing! ](#no-sharing)
 - [Sometimes Sharing is Good?](#sometimes-sharing-is-good)
 - [Building that weird tar](#build-that-weird-tar)
@@ -19,7 +19,7 @@ So processes exist. They can talk to each other, do some work, get compute resou
 The question of isolating processes is essentially where the concept of containers stems from. In fact, containers are nothing but a process or group of processes, running in a kind of isolated manner from the rest of the computer.
 
 
-## Beyond the /
+## Beyond Root
 
 The revered '/' directory. The top of the food chain. Is there anything beyond it? Running stuff like `cd ..` at the top level just returns you there. But imagine...is it actually special?
 
@@ -265,6 +265,8 @@ Make your own linux. Everything that a container does essentially boils down to 
 - From this menu, you can configure various parts of the to-be linux container. You can, for example, remove the init system (under System Configuration), as containers do not require one. 
 - Run `make` and wait.
 - The part you want to add as a docker image is `output/images/rootfs.tar`
+
+For a bit more on my debugging experience with this: go to [here](../debugging/debugging.md#)
 
 
 ## References:
