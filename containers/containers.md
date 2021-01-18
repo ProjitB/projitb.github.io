@@ -5,6 +5,14 @@ So I've been working with containers are their associated management ecosystems(
 
 I've noticed that I usually understand stuff better by building concepts up from the base. So through this, I plan to explain (and discover more about) containers, from their very basics. So while at first I thought there weren't too many resources on this topic, turns out there are a lot of well written blogs on it. I will link to other sites for their examples wherever relavant. 
 
+Contents:
+- [Basic Intro](#the-very-basics)
+- [Beyond the /](#beyond-the-/)
+- [No Sharing! ](#no-sharing!)
+- [Sometimes Sharing is Good?](#sometimes-sharing-is-good?)
+- [Building that weird tar](#building-that-weird-tar)
+- [Buildroot: Make your own custom container](#myol)
+
 
 ## The very basics
 So processes exist. They can talk to each other, do some work, get compute resources etc etc. All processes running on your computer can be listed by ps or its flagged variants. But can processes run which you don't know of? 
@@ -252,9 +260,12 @@ So without a dockerfile...or anything of the sort actually, we have a running co
 ## MyoL
 Make your own linux. Everything that a container does essentially boils down to what is in that tar ball. So we want to customize that to different distributions. Based on the video [4](https://www.youtube.com/watch?v=gMpldbcMHuI)
 
-Now, download `buildroot` from [7](https://buildroot.org/download.html). Extract and run `make menuconfig`. (may have to install some dependencies like ncurses and gcc). From this menu, you can configure various parts of the to-be linux container. You can, for example, remove the init system (under System Configuration), as containers do not require one. Then run `make` and wait.
+- Download `buildroot` from [7](https://buildroot.org/download.html). 
+- Extract and run `make menuconfig`. (may have to install some dependencies like ncurses and gcc). 
+- From this menu, you can configure various parts of the to-be linux container. You can, for example, remove the init system (under System Configuration), as containers do not require one. 
+- Run `make` and wait.
+- The part you want to add as a docker image is `output/images/rootfs.tar`
 
-You can modify some parts of the files created to suit your own custom requirements. Then just tar it up and use it as a docker image :)
 
 ## References:
 1. [https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
