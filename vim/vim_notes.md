@@ -29,6 +29,42 @@ appreciate how useless most plugins are xD, and how awesome vim is
 out-of-the-box. It'd be awesome if you change to vim as a result, or
 even start using vim bindings within other editors as well. Have fun!
 
+Contents:
+- [Basics](#basic-basics)
+    - [Modes](#modes)
+    - [Navigation](#navigation)
+    - [Editing](#editing)
+    - [Fancy Editing](#fancy)
+- [Vim as a Composable Tool](#vim-as-a-composable-tool)
+    - [Commands Intro](#commands-the-heart-of-vim)
+    - [Operators](#operators)
+    - [Motions](#motions-and-more)
+    - [Text Objects](#text-objects)
+    - [Summary](#summary-thus-far)
+- [Customizing](#how-to-customize)
+    - [The Horror that is Vimscript](#the-horror-that-is-vimscript)
+    - [Boolean Options](#boolean-options)
+- [Life Hacks](#life-hacks)
+    - [Mapping Keys](#mapping-keys)
+    - [Autocommands](#autocommands)
+    - [New Operators](#new-operators)
+- [Without Plugin Suggestions](#plugin-less-random-suggestions)
+    - [ctags](#ctags)
+    - [Autocomplete](#autocomplete)
+    - [Snippets](#snippets)
+    - [File Exploring](#file-exploring)
+- [Basic Plugin Suggestions](#plugins)
+- [Random](#random)
+    - [Find and Replace](#find-and-replace)
+    - [Reading from Files](#reading-from-files)
+    - [Folding Code](#folding-code)
+    - [Editing Numbers](#editing-numbers)
+    - [Marks](#marks)
+    - [Command History](#command-history)
+    - [Regex Commands](#regex-commands)
+- [Personal Suggestions](#personal-suggestions)
+- [Acknowledgements](#acknowledgements)
+
 Basic Basics
 ============
 
@@ -802,12 +838,12 @@ Use zM to fold everything in the file. Open all folds with zR
 
 Toggle current fold using za
 
-### Far Editing
+### Editing Numbers
 
 Decrement / Increment next number on same line with
 
-    ctrl A
-    ctrl X
+    ctrl a
+    ctrl x
 
 Try this on a line with a number (like this \[1\])
 
@@ -816,8 +852,8 @@ Try this on a line with a number (like this \[1\])
 Setting and using marks makes it a lot easier to jump back to important
 positions in a file
 
-    ctrl A
-    ctrl X
+    ma
+    \`a
 
 Try this on a line with a number (like this \[1\])
 
@@ -853,7 +889,7 @@ have python commented many lines!
 Combining this with the regex command from above you can do cool things
 like
 
-    g/regex/norm f dw 
+    :g/regex/norm f dw
 
 This would execute a deletion of the first word after a space on every
 line that matches
