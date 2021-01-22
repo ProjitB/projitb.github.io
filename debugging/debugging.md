@@ -15,7 +15,7 @@ Choosing linux headers 5.x, I ran the `make`. Compiling the whole thing through 
 FATAL: kernel too old
 ```
 
-Thought I had the latest headers? A bunch of digging later I realized the error was due to my host kernel's version. I was running ubuntu/xenial64 in vagrant which had some 4.x kernel headers. Ok so upgrade them right? 
+Thought I had the latest headers? A bunch of digging later I realized the error was due to my host kernel's version. I was running ubuntu/xenial64 (rather than the later ubuntu/bionic64) in vagrant which had some 4.x kernel headers. Ok so upgrade them right?
 Turns during the upgrade process, I needed `libssl1.1` or greater. Tried upgrading libssl, but apparently installing other versions of libssl on ubuntu 16.04 can completely mess up the system. So I copied over my rootfs.tar file to my laptop, and created a new vm running bionic beaver (ubuntu 18.04, and is fine with libssl1.1). However, when I went to actually upgrade the headers, on restart, my /vagrant synced folder wasn't being recognized. 
 ```
 Vagrant was unable to mount VirtualBox shared folders. This is usually

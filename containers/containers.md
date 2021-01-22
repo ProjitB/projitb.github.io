@@ -32,7 +32,7 @@ To not mess up my own system with weird syscalls and commands, I usually use a v
 
 Quickstart on vagrant setup for this:
 ```
-> vagrant init ubuntu/xenial64
+> vagrant init ubuntu/bionic64
 > vagrant up
 > vagrant ssh
 ```
@@ -59,7 +59,7 @@ This should in fact yield the same error as before (may differ slightly based on
 > mkdir -p test_dir/bin
 > cp /bin/bash test_dir/bin/    # Path may be slightly different
 > sudo chroot test_dir /bin/bash
-chroot: cannot change root directory to '/bin/bash': Not a directory
+chroot: failed to run command ‘/bin/bash’: No such file or directory
 ```
 
 Why does this error occur? Under the hood, bash needs glibc which isn't present in our chrooted directory structure. Also we'll need some of the other commands like `ls` and stuff so lets grab those. Instead of copying them over (which would also work perfectly), we'll bind mount some of the directories. By opening up another connection to the vm, we can mess around with the files in the mount path and see what it looks like in our chrooted instance as well.
