@@ -15,16 +15,16 @@ Contents:
 
 
 ## The very basics
-We know processes. They communicate, do work, use resources..etc. The `ps` command is also probably familiar (and its associated flags). But what about processes that we can't see on the system? A container is actually nothing but a process / group of processes running in an isolated manner from the rest of the computer. How do we achieve this isolation?
+We know processes. They communicate, do work, use resources..etc. The `ps` command is also probably familiar (and its associated flags). But what about processes that we can't see on the system? A container is actually nothing but a process / group of processes running in an isolated manner from the rest of the computer.
 
-Turns out linux has everything we need in-built! We just need to make use of what's already there for restricting: filesystem, views, and resources. On the way, we'll try and map these concepts to their corresponding wrappers in common tools like docker.
+Turns out linux can achieve this isolation, in-built (albeit perhaps not in a user friendly manner). To create something which looks like a container, We need to make use of what's already there for restricting: filesystem, views, and resources. While looking at the core constructs for these, we'll try and map these concepts to their corresponding wrappers in common tools like docker.
 
 
 ## Beyond Root
 
 While the '/' directory seems to be the 'highest' directory, is it actually? Running stuff like `cd ..` returns you there. But is it actually the root?
 
-It is, but any directory could be a root directory, as long as you couldn't get out of it... right? Like as long as you're not allowed to do a `cd ..` how could you ever tell the difference?
+Any directory could be a root directory, as long as you couldn't get out of it... right? Like as long as you're not allowed to do a `cd ..` how could you ever tell the difference?
 
 In comes `chroot` or change-root (I think? [1](https://en.wikipedia.org/wiki/Chroot)). It's a wrapper around the corresponding syscall, which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the crux of filesystem isolation for containers, so lets play around with it a bit...
 
