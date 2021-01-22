@@ -30,24 +30,24 @@ To not mess up my own system with weird syscalls and commands, I use a vagrant v
 
 Quickstart on vagrant setup for this:
 ```
-vagrant init ubuntu/xenial64
-vagrant up
-vagrant ssh
+> vagrant init ubuntu/xenial64
+> vagrant up
+> vagrant ssh
 ```
 
 
 Ok so now we want to try out chroot to see what levels of isolation we can achieve with this. The claim was that we can essentially make any directory look like the root directory. So in our vm (or normal directory structure if you're willing to take the risk :) )
 
 ```
-mkdir test_dir
-sudo chroot test_dir
+> mkdir test_dir
+> sudo chroot test_dir
 ```
 
 This should yield an error. First off, chroot needs a command to run (usually a shell) once executed. For those familiar with docker, this is very similar to the concept of an entrypoint.
 We retry with:
 
 ```
-sudo chroot test_dir /bin/bash
+> sudo chroot test_dir /bin/bash
 ```
 
 This should in fact yield the same error as before (may differ slightly based on chroot/linux versions?). Essentially the issue right now is that /bin/bash isn't present in the chrooted directory structure. So ok, lets go get it.
@@ -268,10 +268,10 @@ For a bit more on my debugging experience with this: go to [here](https://projit
 
 
 ## References:
-1. [https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
-2. [http://www.unixwiz.net/techtips/mirror/chroot-break.html](http://www.unixwiz.net/techtips/mirror/chroot-break.html)
-3. [https://ericchiang.github.io/post/containers-from-scratch/](https://ericchiang.github.io/post/containers-from-scratch/)
-4. [https://www.youtube.com/watch?v=gMpldbcMHuI](https://www.youtube.com/watch?v=gMpldbcMHuI)
-5. [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/)
-6. [https://blog.lizzie.io/linux-containers-in-500-loc.html](https://blog.lizzie.io/linux-containers-in-500-loc.html)
-7. [https://buildroot.org/download.html](https://buildroot.org/download.html)
+- [1] [https://en.wikipedia.org/wiki/Chroot](https://en.wikipedia.org/wiki/Chroot)
+- [2] [http://www.unixwiz.net/techtips/mirror/chroot-break.html](http://www.unixwiz.net/techtips/mirror/chroot-break.html)
+- [3] [https://ericchiang.github.io/post/containers-from-scratch/](https://ericchiang.github.io/post/containers-from-scratch/)
+- [4] [https://www.youtube.com/watch?v=gMpldbcMHuI](https://www.youtube.com/watch?v=gMpldbcMHuI)
+- [5] [https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/](https://blog.mbrt.dev/2017-10-01-demystifying-container-networking/)
+- [6] [https://blog.lizzie.io/linux-containers-in-500-loc.html](https://blog.lizzie.io/linux-containers-in-500-loc.html)
+- [7] [https://buildroot.org/download.html](https://buildroot.org/download.html)
