@@ -48,12 +48,12 @@ Contents:
     - [Mapping Keys](#mapping-keys)
     - [Autocommands](#autocommands)
     - [New Operators](#new-operators)
-- [Without Plugin Suggestions](#plugin-less-random-suggestions)
+- [Plugins-less Suggestions](#plugin-less-random-suggestions)
     - [ctags](#ctags)
     - [Autocomplete](#autocomplete)
     - [Snippets](#snippets)
     - [File Exploring](#file-exploring)
-- [Basic Plugin Suggestions](#plugins)
+    - [Plugin Suggestions](#plugins)
 - [Random](#random)
     - [Find and Replace](#find-and-replace)
     - [Reading from Files](#reading-from-files)
@@ -62,7 +62,7 @@ Contents:
     - [Marks](#marks)
     - [Command History](#command-history)
     - [Regex Commands](#regex-commands)
-- [Personal Suggestions](#personal-suggestions)
+    - [Personal Suggestions](#personal-suggestions)
 - [Acknowledgements](#acknowledgements)
 
 Basic Basics
