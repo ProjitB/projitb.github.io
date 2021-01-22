@@ -15,18 +15,20 @@ Contents:
 
 
 ## The very basics
-We know processes. They communicate, do work, use resources..etc. The `ps` command is also probably familiar (and its associated flags). But what about processes that we can't see on the system? A container is actually nothing but a process / group of processes running in an isolated manner from the rest of the computer. How do we achieve this isolation? Turns out linux has everything we need in-built! We just need to make use of what's already there for restricting: filesystem, views, and resources. On the way, we'll try and map these concepts to their corresponding wrappers in common tools like docker.
+We know processes. They communicate, do work, use resources..etc. The `ps` command is also probably familiar (and its associated flags). But what about processes that we can't see on the system? A container is actually nothing but a process / group of processes running in an isolated manner from the rest of the computer. How do we achieve this isolation?
+
+Turns out linux has everything we need in-built! We just need to make use of what's already there for restricting: filesystem, views, and resources. On the way, we'll try and map these concepts to their corresponding wrappers in common tools like docker.
 
 
 ## Beyond Root
 
-The revered '/' directory. The top of the food chain...or is it. Is there anything beyond it? Running stuff like `cd ..` returns you there. But is it actually the root?
+While the '/' directory seems to be the 'highest' directory, is it actually? Running stuff like `cd ..` returns you there. But is it actually the root?
 
-Actually, any directory could be a root directory, as long as you couldn't get out of it..right? Like as long as you're not allowed to do a `cd ..`, how could you ever tell the difference?
+It is, but any directory could be a root directory, as long as you couldn't get out of it... right? Like as long as you're not allowed to do a `cd ..` how could you ever tell the difference?
 
-In comes `chroot` or change-root (I think? [1](https://en.wikipedia.org/wiki/Chroot)). It's a wrapper around the corresponding syscall, which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the crux of filesystem isolation for containers, so lets play around with it a bit..
+In comes `chroot` or change-root (I think? [1](https://en.wikipedia.org/wiki/Chroot)). It's a wrapper around the corresponding syscall, which basically lets you create a view of the filesystem for the current process + all other child processes of this. This concept forms the crux of filesystem isolation for containers, so lets play around with it a bit...
 
-To not mess up my own system with weird syscalls and commands, I use a vagrant vm to try everything out, so all commands given here will be based on that.
+To not mess up my own system with weird syscalls and commands, I usually use a vagrant vm to try everything out, so all commands given here will be based on that.
 
 Quickstart on vagrant setup for this:
 ```
@@ -48,15 +50,16 @@ We retry with:
 
 ```
 > sudo chroot test_dir /bin/bash
+chroot: failed to run command ‘/bin/bash’: No such file or directory
 ```
 
 This should in fact yield the same error as before (may differ slightly based on chroot/linux versions?). Essentially the issue right now is that /bin/bash isn't present in the chrooted directory structure. So ok, lets go get it.
 
 ```
-mkdir -p test_dir/bin
-cp /bin/bash test_dir/bin/    # Path may be slightly different
-sudo chroot test_dir /bin/bash
-> chroot: cannot change root directory to '/bin/bash': Not a directory
+> mkdir -p test_dir/bin
+> cp /bin/bash test_dir/bin/    # Path may be slightly different
+> sudo chroot test_dir /bin/bash
+chroot: cannot change root directory to '/bin/bash': Not a directory
 ```
 
 Why does this error occur? Under the hood, bash needs glibc which isn't present in our chrooted directory structure. Also we'll need some of the other commands like `ls` and stuff so lets grab those. Instead of copying them over (which would also work perfectly), we'll bind mount some of the directories. By opening up another connection to the vm, we can mess around with the files in the mount path and see what it looks like in our chrooted instance as well.
@@ -170,7 +173,7 @@ What if we want to add files or storage to a container? Just a process isn't ver
 
 Mounts clearly work inside the container (from above examples). What all can we do with them?
 
-For starters, files can easily be injected into the running container using mounts...even from the host
+For starters, files can easily be injected into the running container using mounts... even from the host
 
 On the host do:
 ```
@@ -188,7 +191,7 @@ bash: /var/rofiles/sample.txt: Read-only file system
 
 Very simply put, using mounts we can control the filesystem. And the chrooted instance is just a view of this filesystem.
 
-But taking this a step further...imagine that the directory were actually a mount of an external block device. By this method, we could actually "attach" a device to a container.
+But taking this a step further... imagine that the directory were actually a mount of an external block device. By this method, we could actually "attach" a device to a container.
 
 
 ### Networking
@@ -197,7 +200,7 @@ I don't think I can provide any better story or explanations regarding this topi
 
 ### Resource Restrictions
 
-Present in `/sys/fs/cgroup` is the holy grail of control of containers. All the fancy restrictions on size, usage...etc all are controlled by cgroups aka control groups. Honestly, cgroups are a topic of their own right. But for the purpose of demonstrating restrictions on a container, all we must to is show that this feature can easily be used to restrict the amount of X a process can use.
+Present in `/sys/fs/cgroup` is the holy grail of control of containers. All the fancy restrictions on size, usage... etc all are controlled by cgroups aka control groups. Honestly, cgroups are a topic of their own right. But for the purpose of demonstrating restrictions on a container, all we must to is show that this feature can easily be used to restrict the amount of X a process can use.
 For now I shall leave it to you for a simple google search on the topic :). [3](https://ericchiang.github.io/post/containers-from-scratch/) also has a simple example restricting memory.
 
 ## Interlude
@@ -210,7 +213,7 @@ Given a process, we know how to make it act like a container. Or at the very lea
 Inspired by the video (procedure will also be very similar and the video itself is brilliant, so PLEASE give it a watch) [4](https://www.youtube.com/watch?v=gMpldbcMHuI), I definitely believe that a crucial part to understanding containers is understanding that, well, their filesystems are literally tarballs. Restricting processes and all seems like something linux would be capable of. But until you actually build your own container from scratch, you just won't _feel_ it. So let's do exactly that.
 
 
-Though as we've already seen, docker is essentially a wrapper around the core constructs of containers....lets use it to make our life a bit easier. Can we build our own docker image? Sure! It's just a tar.
+Though as we've already seen, docker is essentially a wrapper around the core constructs of containers.... let's use it to make our life a bit easier. Can we build our own docker image? Sure! It's just a tar.
 
 So I created a small directory structure:
 ```
@@ -234,7 +237,7 @@ Let's make this into a docker image shall we?
 > cat hello.tar | sudo docker import - hello    # sudo may or may not be required depending on how you installed docker
 ```
 
-Only issue with this, as we saw with our original chrooted instances, is what do we run inside it? Let's bundle this with `bash` perhaps? Add in `ls` as well maybe. You know what? There's an easy way to get this stuff inside it. Add mounts (kind of like what we did before). We'll mount bin, lib, and lib64 (dependencies for some of the executables essentially). This is a temporary hack...we'll make our container end-to-end in a bit.
+Only issue with this, as we saw with our original chrooted instances, is what do we run inside it? Let's bundle this with `bash` perhaps? Add in `ls` as well maybe. You know what? There's an easy way to get this stuff inside it. Add mounts (kind of like what we did before). We'll mount bin, lib, and lib64 (dependencies for some of the executables essentially). This is a temporary hack... we'll make our container end-to-end in a bit.
 
 ```
 > # Change the next command with the apprpriate hash from (sudo?) docker images
@@ -253,7 +256,7 @@ hello world
 bash-4.3#
 ```
 
-So without a dockerfile...or anything of the sort actually, we have a running container? Admittedly we used our host's bin, lib and lib64 files. The only way to get around that would be to build our own...
+So without a dockerfile... or anything of the sort actually, we have a running container? Admittedly we used our host's bin, lib and lib64 files. The only way to get around that would be to build our own...
 
 ## MyoL
 Make your own linux. Everything that a container does essentially boils down to what is in that tar ball. So we want to customize that to different distributions. Based on the video [4](https://www.youtube.com/watch?v=gMpldbcMHuI)
