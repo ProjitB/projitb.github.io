@@ -6,3 +6,4 @@ So the plan is to kind of keep track of stuff I do / learn over time using this.
 - [Random Facts](./random/random.md)
 - [VIM notes](./vim/vim_notes.md)
 - [Basics of Containers](./containers/containers.md)
+- [Self Modifying Code](./self_mod/self_mod.md)
