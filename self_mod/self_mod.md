@@ -1,6 +1,6 @@
 # Self Modifying Code
 
-Due to the von-neuman architecture (basically what all our processors use), code and data are indistinguishable. A pretty great result of this is that you can technically intersperse code with data, and vice versa. What does that mean? It means that what would normally be an input to your program, can actually _be_ the program itself.
+Due to the Von-Neumann architecture [2](https://en.wikipedia.org/wiki/Von_Neumann_architecture) (basically what all our processors use), code and data are indistinguishable. A pretty great result of this is that you can technically intersperse code with data, and vice versa. What does that mean? It means that what would normally be an input to your program, can actually _be_ the program itself.
 
 The concept of injecting code isn't new. But the way we'll do it here is actually quite interesting (not very unique though). I found seeing how this worked at an assembly level, helped me understand how things like JIT compilation and meta-programming would be implemented under the hood. Assuming you can write code, which actually modifies the code it will execute next (or even later), it doesn't seem like a far stretch to add a few conditions to generate new optimized code at runtime (essentially JIT compilation at a very high level).
 
@@ -195,3 +195,4 @@ What we've just seen here is the basis for larger concepts like metaprogramming 
 
 ## References:
 - [1] [https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/](https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/)
+- [2] [https://en.wikipedia.org/wiki/Von_Neumann_architecture](https://en.wikipedia.org/wiki/Von_Neumann_architecture)
