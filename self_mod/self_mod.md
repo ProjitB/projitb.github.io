@@ -7,16 +7,15 @@ The concept of injecting code isn't new. But the way we'll do it here is actuall
 
 Contents:
 - [Tools](#tools)
-- [Beyond Root](#beyond-root)
-- [No Sharing!](#no-sharing)
-- [Sometimes Sharing is Good?](#sometimes-sharing-is-good)
-- [Building that weird tar](#build-that-weird-tar)
-- [Buildroot: Make your own custom container](#myol)
+- [Basic Assembly Code](#basic-assembly-code)
+- [Start Deleting Stuff](#start-deleting-stuff)
+- [Modifying Code](#modifying-code)
+- [Conclusion](#conclusion)
 
 
 ## Tools
 Quickstart on vagrant setup for this:
-```
+``` bash
 > vagrant init ubuntu/bionic64
 > vagrant up
 > vagrant ssh
@@ -189,7 +188,7 @@ Compile (using the aformentioned flags), and run it. No more seg fault :)
 In fact, go a step further and again analyze the hexdump of the file. You'll see your bytes: 0x00 and 0x05. This implies they were definitely part of your program...and yet they never ran because they were modified.
 
 
-## Conclusions
+## Conclusion
 What we've just seen here is the basis for larger concepts like metaprogramming and JIT compilation. At runtime, you can convert what is 'data' into 'code'. Implementing some naiive JIT optimizations doesn't seem too difficult either then. All you would need to do is add a few lines to check for some continuation (ex. check if a loop was hit 100 times), after which you could overwrite the main branch by moving in new assembly.
 
 
