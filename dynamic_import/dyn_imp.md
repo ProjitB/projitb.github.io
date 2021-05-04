@@ -19,12 +19,12 @@ Quickstart on vagrant setup for this:
 > vagrant ssh
 ```
 
-Though it should come in-built, we do need python3 for this
+Though it should come in-built, we do need python for this
 
 ## Custom Importer
 
 Let's put up some rules. For the modules we want to import using our custom logic, let's say that they are at path: custom
-``` python3
+```python
 # file: main.py
 import sys
 from importer import FindImports
@@ -40,14 +40,14 @@ if __name__ == '__main__':
 ```
 
 Let's also define this somefile, but we're not going to put it in the path custom. It'll be somewhere, let's say on a github gist.
-``` python3
+```python
 # file: somefile.py   located: https://gist.githubusercontent.com/ProjitB/170993eb36fa7f23152c745a36e63cfc/raw/d5577826bde341ab763688c3d7ab7a5d7848fb0b/somefile.py
 def external_func(arg):
   print("the arg you passed is {}".format(str(arg)))
 
 ```
 
-``` python3
+```python
 # file: importer.py
 import sys
 import types
@@ -97,7 +97,7 @@ class ImportLoader(object):
 ```
 
 The find\_code function can essentially search anywhere in the world for the code. It's responsibility is to find the file and return the source code.
-```
+```python
 # file: importer.py
 def find_code(filename):
     if filename == 'somefile':
@@ -111,7 +111,7 @@ def find_code(filename):
 
 Now if we run main.py we see:
 ``` bash
-vagrant@ubuntu-bionic:~$ python3 main.py
+vagrant@ubuntu-bionic:~$ python main.py
 DEBUG:root:Custom Importer Invoked for custom
 DEBUG:root:Custom Importer Invoked for custom.somefile
 DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): gist.githubusercontent.com
@@ -125,7 +125,7 @@ For all intents and purposes, this importing structure is indistinguishable to a
 ## Import at Runtime
 Given the previous part, this is actually quite trivial.
 An example?
-```python3
+```python
 # Alternate main.py
 import sys
 from importer import FindImports
