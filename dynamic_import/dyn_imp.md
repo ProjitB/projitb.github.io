@@ -138,7 +138,7 @@ def main():
         func = getattr(mod, 'external_func')
         func(3)
     else:
-        print("Can't import that file, sorry")
+        print("Could not import that file, sorry")
 
 if __name__ == '__main__':
     main()
@@ -147,7 +147,7 @@ Running it:
 ```bash
 > python3 main.py
 Enter the file you want to import: abc
-Can't import that file, sorry
+Could not import that file, sorry
 > python3 main.py
 Enter the file you want to import: somefile
 DEBUG:root:Custom Importer Invoked for custom
