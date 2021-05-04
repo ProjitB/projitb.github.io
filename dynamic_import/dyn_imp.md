@@ -111,7 +111,7 @@ def find_code(filename):
 
 Now if we run main.py we see:
 ``` bash
-vagrant@ubuntu-bionic:~$ python main.py
+> python main.py
 DEBUG:root:Custom Importer Invoked for custom
 DEBUG:root:Custom Importer Invoked for custom.somefile
 DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): gist.githubusercontent.com
@@ -132,7 +132,7 @@ from importer import FindImports
 sys.meta_path.append(FindImports)
 
 def main():
-    inp = input()
+    inp = input("Enter the file you want to import: ")
     if inp == 'somefile':
         mod = __import__("custom.{}".format(inp), fromlist=['object'])
         func = getattr(mod, 'external_func')
@@ -142,6 +142,19 @@ def main():
 
 if __name__ == '__main__':
     main()
+```
+Running it:
+```bash
+> python3 main.py
+Enter the file you want to import: abc
+Can't import that file, sorry
+> python3 main.py
+Enter the file you want to import: somefile
+DEBUG:root:Custom Importer Invoked for custom
+DEBUG:root:Custom Importer Invoked for custom.somefile
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): gist.githubusercontent.com
+DEBUG:urllib3.connectionpool:https://gist.githubusercontent.com:443 "GET /ProjitB/170993eb36fa7f23152c745a36e63cfc/raw/d5577826bde341ab763688c3d7ab7a5d7848fb0b/somefile.py HTTP/1.1" 200 76
+the arg you passed is 3
 ```
 
 Run this, and you'll see that at runtime, the file gets imported. The code extracts a known attribute from this, which is the function, and then runs this.
