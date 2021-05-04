@@ -36,7 +36,7 @@ So for this next part, what we'll do is write a bit of assembly to read and prin
 
 Even if you're not too comfortable with assembly, this should be decently understandable. All we'll be doing is moving some values to appropriate registers and invoke syscalls.
 I'm not too great with assembly, but here's a shot at it:
-```Unix Assembly
+```asm
 .data
 _somefile:
     .string "/file1"
