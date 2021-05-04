@@ -6,8 +6,8 @@ Let's write a custom importer to handle finding our source files from arbitrary 
 
 Contents:
 - [Tools](#tools)
-- [Custom Importer](#customimporter)
-- [Import at Runtime](#importatruntime)
+- [Custom Importer](#custom-importer)
+- [Import at Runtime](#import-at-runtime)
 - [Conclusion](#conclusion)
 
 
