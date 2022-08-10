@@ -8,3 +8,6 @@ So the plan is to kind of keep track of stuff I do / learn over time using this.
 - [Basics of Containers](./containers/containers.md)
 - [Self Modifying Code](./self_mod/self_mod.md)
 - [Custom and Dynamic Importing Code -- Python](./dynamic_import/dyn_imp.md)
+
+
+- [Work Log](./log/log.md)
